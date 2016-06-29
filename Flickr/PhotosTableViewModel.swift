@@ -10,7 +10,6 @@ import Nuke
 
 class PhotosViewModel {
 	
-	
 	var photos = [Photo]()
 	
 	func loadPhotos(completion: (() -> ())?) {

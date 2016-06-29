@@ -65,44 +65,43 @@
         <scene sceneID="bqa-Vz-kWv">
             <objects>
                 <tableViewController id="Axi-HF-HDN" customClass="PhotoDetailTableViewController" customModule="Flickr" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" id="IK8-Qy-1NF">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="IK8-Qy-1NF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="84" id="yEx-vI-eTm" customClass="CommentTableViewCell" customModule="Flickr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="84"/>
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" id="yEx-vI-eTm" customClass="CommentTableViewCell" customModule="Flickr" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yEx-vI-eTm" id="tf4-hR-rgd">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q53-VV-z6M">
-                                            <rect key="frame" x="8" y="8" width="584" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q53-VV-z6M">
+                                            <rect key="frame" x="8" y="8" width="584" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4h-xm-avU">
-                                            <rect key="frame" x="8" y="28" width="584" height="47"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Content" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4J5-ym-LRs">
+                                            <rect key="frame" x="8" y="38" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="i4h-xm-avU" firstAttribute="bottom" secondItem="tf4-hR-rgd" secondAttribute="bottomMargin" id="8VX-XH-hsa"/>
+                                        <constraint firstItem="4J5-ym-LRs" firstAttribute="leading" secondItem="tf4-hR-rgd" secondAttribute="leadingMargin" id="1cd-xU-exV"/>
                                         <constraint firstItem="Q53-VV-z6M" firstAttribute="top" secondItem="tf4-hR-rgd" secondAttribute="topMargin" id="8s2-EA-w1z"/>
-                                        <constraint firstItem="i4h-xm-avU" firstAttribute="leading" secondItem="tf4-hR-rgd" secondAttribute="leadingMargin" id="S0J-gA-Vix"/>
-                                        <constraint firstItem="i4h-xm-avU" firstAttribute="top" secondItem="tf4-hR-rgd" secondAttribute="topMargin" constant="20" id="Sji-1L-sGN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="4J5-ym-LRs" secondAttribute="trailing" id="BnH-8k-EFM"/>
+                                        <constraint firstItem="4J5-ym-LRs" firstAttribute="bottom" secondItem="tf4-hR-rgd" secondAttribute="bottomMargin" id="CQ4-Oq-t2t"/>
                                         <constraint firstItem="Q53-VV-z6M" firstAttribute="trailing" secondItem="tf4-hR-rgd" secondAttribute="trailingMargin" id="Tfc-NT-oz7"/>
-                                        <constraint firstItem="i4h-xm-avU" firstAttribute="trailing" secondItem="tf4-hR-rgd" secondAttribute="trailingMargin" id="lPy-DM-ib3"/>
+                                        <constraint firstItem="4J5-ym-LRs" firstAttribute="top" secondItem="Q53-VV-z6M" secondAttribute="bottom" constant="10" id="rJ7-8m-4uF"/>
                                         <constraint firstItem="Q53-VV-z6M" firstAttribute="leading" secondItem="tf4-hR-rgd" secondAttribute="leadingMargin" id="sAA-Qa-5hP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="commentLabel" destination="i4h-xm-avU" id="6tQ-wN-Qzs"/>
+                                    <outlet property="commentLabel" destination="4J5-ym-LRs" id="gwa-a2-k6R"/>
                                     <outlet property="nameLabel" destination="Q53-VV-z6M" id="p1e-nM-XKM"/>
                                 </connections>
                             </tableViewCell>

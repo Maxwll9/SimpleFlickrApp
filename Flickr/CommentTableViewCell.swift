@@ -11,7 +11,7 @@ import UIKit
 class CommentTableViewCell: UITableViewCell {
 	
 	@IBOutlet var nameLabel: UILabel!
-	@IBOutlet var commentLabel: UITextView!
+	@IBOutlet var commentLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,4 +24,8 @@ class CommentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+	func configure(comment: Comment) {
+		nameLabel.text = comment.authorName
+		commentLabel.text = comment.content
+	}
 }

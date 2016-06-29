@@ -19,15 +19,37 @@ class PhotoDetailTableViewController: UITableViewController {
 		
 		let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
 		tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+		
+		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.estimatedRowHeight = 100
+		
+		viewModel.loadComments { self.tableView.reloadData() }
     }
 	
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.comments.count
+	}
+	
+	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+		return 1
+	}
+	
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
+		let comment = viewModel.comments[indexPath.row]
+		
+		cell.configure(comment)
+		
+		return cell
+	}
+	
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		return nil
+		let cell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("TableSectionHeader")
+		let header = cell as! TableSectionHeader
+		
+		Webservice.loadImage(header.imageView, url: viewModel.photo.remoteURLs.largeImageURL, completion: nil)
+		
+		return header
 	}
 
 }

@@ -46,7 +46,7 @@ class PhotosTableViewController: UITableViewController {
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoTableViewCell
 		let photo = viewModel.photos[indexPath.row]
-		let photoURL = photo.remoteURL
+		let photoURL = photo.remoteURLs.smallImageURL
 
 		Webservice.loadImage(cell.photoImageView, url: photoURL) {
 			UIView.animateWithDuration(0.2) {
