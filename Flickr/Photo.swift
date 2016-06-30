@@ -34,9 +34,9 @@ extension Photo {
 			largeImageURL = NSURL(string: largeImageURLString) {
 			self.remoteURLs = (smallImageURL, largeImageURL)
 		} else {
-			let originalImageURLString = dictionary["url_m"] as! String
-			let originalImageURL = NSURL(string: originalImageURLString)!
-			self.remoteURLs = (smallImageURL, originalImageURL)
+			let mediumImageURLString = dictionary["url_z"] as! String
+			let mediumImageURL = NSURL(string: mediumImageURLString)!
+			self.remoteURLs = (smallImageURL, mediumImageURL)
 		}
 		
 		self.ownerID = ownerID

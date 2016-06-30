@@ -9,6 +9,8 @@
 import UIKit
 
 class PhotoDetailTableViewController: UITableViewController {
+	
+	@IBOutlet var imageView: UIImageView!
 
 	let viewModel = PhotoDetailViewModel()
 
@@ -17,8 +19,7 @@ class PhotoDetailTableViewController: UITableViewController {
 		
 		navigationItem.title = viewModel.photo.title
 		
-		let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
-		tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
+		Webservice.loadImage(imageView, url: viewModel.photo.remoteURLs.largeImageURL, completion: nil)
 		
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
@@ -41,15 +42,6 @@ class PhotoDetailTableViewController: UITableViewController {
 		cell.configure(comment)
 		
 		return cell
-	}
-	
-	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let cell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("TableSectionHeader")
-		let header = cell as! TableSectionHeader
-		
-		Webservice.loadImage(header.imageView, url: viewModel.photo.remoteURLs.largeImageURL, completion: nil)
-		
-		return header
 	}
 
 }

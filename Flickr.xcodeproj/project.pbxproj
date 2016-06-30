@@ -15,8 +15,6 @@
 		B6541BBF1D0C587000BD0707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6541BBD1D0C587000BD0707 /* LaunchScreen.storyboard */; };
 		B6541BCA1D0C587000BD0707 /* FlickrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6541BC91D0C587000BD0707 /* FlickrTests.swift */; };
 		B6541BD51D0C587000BD0707 /* FlickrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6541BD41D0C587000BD0707 /* FlickrUITests.swift */; };
-		B6623D571D241FAF00E29FFF /* TableSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6623D561D241FAF00E29FFF /* TableSectionHeader.xib */; };
-		B6623D5B1D24204100E29FFF /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6623D5A1D24204100E29FFF /* TableSectionHeader.swift */; };
 		B6623D5D1D24229C00E29FFF /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6623D5C1D24229C00E29FFF /* CommentTableViewCell.swift */; };
 		B6C2CCC71D19B6C100236A1D /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2CCC61D19B6C100236A1D /* PhotoTableViewCell.swift */; };
 		B6C2CCC91D19C58600236A1D /* PhotoDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2CCC81D19C58600236A1D /* PhotoDetailTableViewController.swift */; };
@@ -68,8 +66,6 @@
 		B6541BD01D0C587000BD0707 /* FlickrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6541BD41D0C587000BD0707 /* FlickrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrUITests.swift; sourceTree = "<group>"; };
 		B6541BD61D0C587000BD0707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B6623D561D241FAF00E29FFF /* TableSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableSectionHeader.xib; sourceTree = "<group>"; };
-		B6623D5A1D24204100E29FFF /* TableSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		B6623D5C1D24229C00E29FFF /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		B6C2CCC61D19B6C100236A1D /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		B6C2CCC81D19C58600236A1D /* PhotoDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -189,10 +185,8 @@
 		B6623D5F1D2429C400E29FFF /* PhotoDetailTable */ = {
 			isa = PBXGroup;
 			children = (
-				B6623D561D241FAF00E29FFF /* TableSectionHeader.xib */,
 				B6C2CCC81D19C58600236A1D /* PhotoDetailTableViewController.swift */,
 				B6623D5C1D24229C00E29FFF /* CommentTableViewCell.swift */,
-				B6623D5A1D24204100E29FFF /* TableSectionHeader.swift */,
 			);
 			name = PhotoDetailTable;
 			sourceTree = "<group>";
@@ -372,7 +366,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6623D571D241FAF00E29FFF /* TableSectionHeader.xib in Resources */,
 				B6541BBF1D0C587000BD0707 /* LaunchScreen.storyboard in Resources */,
 				B6541BBC1D0C587000BD0707 /* Assets.xcassets in Resources */,
 				B6541BBA1D0C587000BD0707 /* Main.storyboard in Resources */,
@@ -524,7 +517,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6C2CCC71D19B6C100236A1D /* PhotoTableViewCell.swift in Sources */,
-				B6623D5B1D24204100E29FFF /* TableSectionHeader.swift in Sources */,
 				B6ECA3801D180441003CC01D /* Photo.swift in Sources */,
 				B6ECA38C1D184CEE003CC01D /* Resource.swift in Sources */,
 				B6ECA38A1D1809B4003CC01D /* Webservice.swift in Sources */,

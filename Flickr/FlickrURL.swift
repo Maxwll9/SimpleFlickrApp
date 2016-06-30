@@ -48,11 +48,11 @@ struct FlickrURL {
 	}
 	
 	static func getRecentPhotosURL() -> NSURL {
-		return flickrURL(method: .RecentPhotos, parameters: ["extras": "url_m,url_h,url_o,owner"])
+		return flickrURL(method: .RecentPhotos, parameters: ["extras": "url_m,url_h,url_z,owner"])
 	}
 	
 	static func getInterestingPhotosURL() -> NSURL {
-		return flickrURL(method: .InterestingPhotos, parameters: ["extras": "url_m,url_h,url_o,owner"])
+		return flickrURL(method: .InterestingPhotos, parameters: ["extras": "url_m,url_h,url_z,owner"])
 	}
 	
 	static func getCommentsForPhoto(photoID: String) -> NSURL {

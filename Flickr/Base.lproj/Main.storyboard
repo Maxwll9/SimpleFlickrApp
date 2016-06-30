@@ -69,9 +69,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="MIa-Gj-JcS">
+                            <rect key="frame" x="0.0" y="64" width="600" height="310"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" id="yEx-vI-eTm" customClass="CommentTableViewCell" customModule="Flickr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="65"/>
+                                <rect key="frame" x="0.0" y="402" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yEx-vI-eTm" id="tf4-hR-rgd">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
@@ -111,6 +115,13 @@
                             <outlet property="delegate" destination="Axi-HF-HDN" id="C79-Ny-lH1"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="View Profile" id="Mi8-rh-D1m"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="MIa-Gj-JcS" id="Tca-9M-Sgj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="leR-UC-9ER" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
