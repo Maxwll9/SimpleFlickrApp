@@ -13,14 +13,15 @@ class PhotoDetailViewModel {
 	let sharedWebservice: Webservice
 	let bigViewModel: BigViewModel
 	
-	let photo: Photo
+	var photo: Photo {
+		return bigViewModel.currentPhoto
+	}
 	
 	var comments = [Comment]()
 	
 	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
 		self.bigViewModel = bigViewModel
-		self.photo = bigViewModel.currentPhoto
 	}
 	
 	func loadComments(completion: (() -> ())?) {

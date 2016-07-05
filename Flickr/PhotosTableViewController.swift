@@ -16,18 +16,14 @@ class PhotosTableViewController: UITableViewController {
 	
 	@IBAction func segmentedControlDidChange(sender: AnyObject) {
 		let selectedIndex = segmentedControl.selectedSegmentIndex
-		let type = segmentedControl.titleForSegmentAtIndex(selectedIndex)!
 		
-		switch type {
-		case "Recent":
-			viewModel.url = FlickrURL.getRecentPhotosURL()
-		case "Explore":
-			viewModel.url = FlickrURL.getInterestingPhotosURL()
-		default:
-			break
+		viewModel.selectedIndex = selectedIndex
+		
+		if viewModel.photos[selectedIndex].count == 0 {
+			refresh()
+		} else {
+			tableView.reloadData()
 		}
-		
-		refresh()
 	}
 	
 	// MARK: View Lifecycle
@@ -56,23 +52,24 @@ class PhotosTableViewController: UITableViewController {
 		refreshControl?.addTarget(self, action: #selector(PhotosTableViewController.refresh), forControlEvents: .ValueChanged)
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "ShowDetail" {
-			if let selectedPath = tableView.indexPathsForSelectedRows?.first {
-				viewModel.setCurrentPhoto(selectedPath.row)
-			}
-		}
-	}
+//	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//		if segue.identifier == "ShowDetail" {
+//			if let index = tableView.indexPathsForSelectedRows?.first?.row {
+//				viewModel.setCurrentPhoto(index)
+//			}
+//		}
+//	}
 
     // MARK: - UITableViewDataSource
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.photos.count
+        return viewModel.photos[viewModel.selectedIndex].count
     }
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoTableViewCell
-		let photo = viewModel.photos[indexPath.row]
+		let selectedIndex = viewModel.selectedIndex
+		let photo = viewModel.photos[selectedIndex][indexPath.row]
 		let photoURL = photo.remoteURLs.smallImageURL
 		
 		cell.photoImageView.image = nil
@@ -93,7 +90,7 @@ class PhotosTableViewController: UITableViewController {
 	
 	// MARK: - UITableViewDelegate
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		viewModel.setCurrentPhoto(indexPath.row)
-	}
+//	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//		viewModel.setCurrentPhoto(indexPath.row)
+//	}
 }

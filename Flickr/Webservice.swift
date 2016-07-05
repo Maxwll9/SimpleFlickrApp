@@ -11,7 +11,9 @@ import Nuke
 
 public typealias JSONDictionary = [String: AnyObject]
 
-struct Webservice {
+class Webservice {
+	var test: Int!
+	
 	func load<A>(resource: Resource<A>, completion: A? -> ()) {
 		Alamofire.request(.GET, resource.url).responseData { response in
 			let result = response.data.flatMap(resource.parse)

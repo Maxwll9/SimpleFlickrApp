@@ -13,7 +13,7 @@ struct Comment {
 	let authorID: String
 	let content: String
 
-	var buddyIconURL: NSURL?
+	var buddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
 }
 
 extension Comment {

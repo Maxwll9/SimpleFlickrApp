@@ -16,12 +16,13 @@ class ProfileViewModel {
 	var photos = [Photo]()
 	var profile: Profile!
 	
-	let userID: String
+	var userID: String {
+		return bigViewModel.currentPhoto.ownerID
+	}
 	
 	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
 		self.bigViewModel = bigViewModel
-		self.userID = bigViewModel.currentPhoto.ownerID
 	}
 	
 	func loadPhotos(completion: (() -> ())?) {

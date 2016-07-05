@@ -70,7 +70,7 @@
                             <rect key="frame" x="20" y="8" width="560" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="Explore"/>
+                                <segment title="Trending"/>
                                 <segment title="Recent"/>
                             </segments>
                             <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,7 +93,7 @@
             <objects>
                 <tableViewController id="Axi-HF-HDN" customClass="PhotoDetailTableViewController" customModule="Flickr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="IK8-Qy-1NF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="cIF-fD-hI5">
@@ -191,7 +191,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="xCm-a1-N95">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dWT-fv-pi9">
@@ -229,7 +229,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="100" id="x1u-rz-9z4" customClass="PhotoTableViewCell" customModule="Flickr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="156" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x1u-rz-9z4" id="NyY-tW-7cu">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
@@ -281,6 +281,7 @@
                             <outlet property="delegate" destination="feK-Aw-Vbb" id="lre-aF-VHM"/>
                         </connections>
                     </tableView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buddyiconImageView" destination="dWT-fv-pi9" id="yQ6-8t-2xw"/>
@@ -323,6 +324,6 @@
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p9r-8Q-WOM"/>
+        <segue reference="NeF-Bd-c4z"/>
     </inferredMetricsTieBreakers>
 </document>

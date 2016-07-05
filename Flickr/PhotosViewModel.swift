@@ -10,10 +10,18 @@ class PhotosViewModel {
 	
 	let sharedWebservice: Webservice
 	let bigViewModel: BigViewModel
-
-	var photos = [Photo]()
 	
-	var url = FlickrURL.getInterestingPhotosURL()
+	
+	var selectedIndex = 0
+	var photos = [
+		[Photo](),
+		[Photo]()
+	]
+	
+	var urls = [
+		FlickrURL.getInterestingPhotosURL(),
+		FlickrURL.getRecentPhotosURL()
+	]
 	
 	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
@@ -21,15 +29,15 @@ class PhotosViewModel {
 	}
 	
 	func loadPhotos(completion: (() -> ())?) {
-		sharedWebservice.load(Photo.all(url)) { [weak self] result in
+		sharedWebservice.load(Photo.all(urls[selectedIndex])) { [weak self] result in
 			if let result = result {
-				self?.photos = result
+				self?.photos[self!.selectedIndex] = result
 			}
 			completion?()
 		}
 	}
 	
-	func setCurrentPhoto(index: Int) {
-		bigViewModel.currentPhoto = photos[index]
-	}
+//	func setCurrentPhoto(index: Int) {
+//		
+//	}
 }

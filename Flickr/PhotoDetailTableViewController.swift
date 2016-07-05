@@ -37,7 +37,8 @@ class PhotoDetailTableViewController: UITableViewController {
 			self?.spinner.stopAnimating()
 		}
 		
-		navigationItem.title = viewModel.photo.title
+		let photo = viewModel.bigViewModel.currentPhoto
+		navigationItem.title = photo.title
 		
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
