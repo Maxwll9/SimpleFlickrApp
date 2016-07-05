@@ -8,14 +8,16 @@
 
 class PhotosViewModel {
 	
-	var sharedWebservice: Webservice
+	let sharedWebservice: Webservice
+	let bigViewModel: BigViewModel
 
 	var photos = [Photo]()
 	
 	var url = FlickrURL.getInterestingPhotosURL()
 	
-	init(webservice: Webservice) {
+	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
+		self.bigViewModel = bigViewModel
 	}
 	
 	func loadPhotos(completion: (() -> ())?) {
@@ -25,5 +27,9 @@ class PhotosViewModel {
 			}
 			completion?()
 		}
+	}
+	
+	func setCurrentPhoto(index: Int) {
+		bigViewModel.currentPhoto = photos[index]
 	}
 }

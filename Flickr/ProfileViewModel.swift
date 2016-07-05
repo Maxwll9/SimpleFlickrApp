@@ -9,15 +9,19 @@
 import UIKit
 
 class ProfileViewModel {
+	
 	let sharedWebservice: Webservice
+	let bigViewModel: BigViewModel
 	
 	var photos = [Photo]()
 	var profile: Profile!
 	
-	var userID: String!
+	let userID: String
 	
-	init(webservice: Webservice) {
+	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
+		self.bigViewModel = bigViewModel
+		self.userID = bigViewModel.currentPhoto.ownerID
 	}
 	
 	func loadPhotos(completion: (() -> ())?) {

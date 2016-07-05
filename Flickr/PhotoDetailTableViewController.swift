@@ -15,7 +15,7 @@ class PhotoDetailTableViewController: UITableViewController {
 
 	@IBOutlet var profileBarButtonItem: UIBarButtonItem!
 
-	var viewModel: PhotoDetailViewModel?
+	var viewModel: PhotoDetailViewModel!
 	
 	// MARK: View Lifecycle
 	
@@ -30,24 +30,14 @@ class PhotoDetailTableViewController: UITableViewController {
 		configureUI()
     }
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "ShowProfile" {
-			let destinationVC = segue.destinationViewController as! ProfileTableViewController
-			let ownerID = viewModel!.photo.ownerID
-			
-			destinationVC.viewModel!.userID = ownerID
-		}
-	}
-	
 	// MARK: Layout
 	
 	private func configureUI() {
-		let url = viewModel!.photo.remoteURLs.largeImageURL
-		viewModel!.sharedWebservice.loadImage(imageView, url: url) { [weak self] in
+		viewModel.loadImage(imageView) { [weak self] in
 			self?.spinner.stopAnimating()
 		}
 		
-		navigationItem.title = viewModel!.photo.title
+		navigationItem.title = viewModel.photo.title
 		
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
@@ -58,7 +48,7 @@ class PhotoDetailTableViewController: UITableViewController {
 	}
 	
 	func refresh() {
-		viewModel!.loadComments { [weak self] in
+		viewModel.loadComments { [weak self] in
 			self?.tableView.reloadData()
 			self?.refreshControl?.endRefreshing()
 		}
@@ -67,12 +57,12 @@ class PhotoDetailTableViewController: UITableViewController {
 	// MARK: - UITableViewDataSource
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel!.comments.count
+		return viewModel.comments.count
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
-		let comment = viewModel!.comments[indexPath.row]
+		let comment = viewModel.comments[indexPath.row]
 		
 		cell.configure(comment)
 		

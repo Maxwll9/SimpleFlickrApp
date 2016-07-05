@@ -6,15 +6,21 @@
 //  Copyright © 2016 Maxim Nasakin. All rights reserved.
 //
 
+import UIKit
+
 class PhotoDetailViewModel {
 	
-	var sharedWebservice: Webservice
+	let sharedWebservice: Webservice
+	let bigViewModel: BigViewModel
 	
-	var photo: Photo!
+	let photo: Photo
+	
 	var comments = [Comment]()
 	
-	init(webservice: Webservice) {
+	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
+		self.bigViewModel = bigViewModel
+		self.photo = bigViewModel.currentPhoto
 	}
 	
 	func loadComments(completion: (() -> ())?) {
@@ -26,5 +32,10 @@ class PhotoDetailViewModel {
 			}
 			completion?()
 		}
+	}
+	
+	func loadImage(imageView: UIImageView, completion: (() -> ())?) {
+		let url = photo.remoteURLs.largeImageURL
+		sharedWebservice.loadImage(imageView, url: url, completion: completion)
 	}
 }
