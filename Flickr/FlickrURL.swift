@@ -10,10 +10,12 @@ import Foundation
 
 enum Method: String {
 	case InterestingPhotos = "flickr.interestingness.getList"
-	case RecentPhotos = "flickr.photos.getRecent"
 	
+	case RecentPhotos = "flickr.photos.getRecent"
 	case GetComments = "flickr.photos.comments.getList"
+	
 	case GetPublicPhotos = "flickr.people.getPublicPhotos"
+	case GetProfileInfo = "flickr.people.getInfo"
 }
 
 struct FlickrURL {
@@ -32,12 +34,12 @@ struct FlickrURL {
 			"api_key": APIKey
 		]
 		
-		queryItems += baseParameters.flatMap { (key, value) in
+		queryItems += baseParameters.flatMap { key, value in
 			NSURLQueryItem(name: key, value: value)
 		}
 		
 		if let additionalParams = parameters {
-			queryItems += additionalParams.flatMap { (key, value) in
+			queryItems += additionalParams.flatMap { key, value in
 				NSURLQueryItem(name: key, value: value)
 			}
 		}
@@ -59,11 +61,23 @@ struct FlickrURL {
 		return flickrURL(method: .GetComments, parameters: ["photo_id": photoID])
 	}
 	
+	static func getProfileInfo(ownerID: String) -> NSURL {
+		let params = [
+			"user_id": ownerID
+		]
+		return flickrURL(method: .GetProfileInfo, parameters: params)
+	}
+	
 	static func getPublicPhotosForUser(ownerID: String) -> NSURL {
 		let params = [
 			"user_id": ownerID,
 			"extras": "url_m,url_h,date_taken"
 		]
 		return flickrURL(method: .GetPublicPhotos, parameters: params)
+	}
+	
+	static func getBuddyiconURL(iconFarm: String, iconServer: String, nsid: String) -> NSURL {
+		let urlString = "http://farm\(iconFarm).staticflickr.com/\(iconServer)/buddyicons/\(nsid).jpg"
+		return NSURL(string: urlString)!
 	}
 }

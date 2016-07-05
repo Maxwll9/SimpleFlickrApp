@@ -17,7 +17,7 @@ struct Photo {
 		largeImageURL: NSURL
 	)
 	
-	let ownerID: String?
+	let ownerID: String
 }
 
 extension Photo {
@@ -29,32 +29,27 @@ extension Photo {
 			ownerID = dictionary["owner"] as? String,
 			smallImageURL = NSURL(string: smallImageURLString) else { return nil }
 		
-		if let
-			largeImageURLString = dictionary["url_h"] as? String,
-			largeImageURL = NSURL(string: largeImageURLString) {
-			self.remoteURLs = (smallImageURL, largeImageURL)
-		} else {
-			let mediumImageURLString = dictionary["url_z"] as! String
-			let mediumImageURL = NSURL(string: mediumImageURLString)!
-			self.remoteURLs = (smallImageURL, mediumImageURL)
-		}
+		let hugeImageURLString = dictionary["url_h"] as? String
+		let mediumImageURLString = dictionary["url_z"] as? String
+
+		let largeImageURLString = hugeImageURLString ?? mediumImageURLString ?? smallImageURLString
+		let largeImageURL = NSURL(string: largeImageURLString)!
 		
-		self.ownerID = ownerID
 		self.photoID = photoID
 		self.title = title
+		self.remoteURLs = (smallImageURL, largeImageURL)
+		self.ownerID = ownerID
 	}
 }
 
 extension Photo {
 	static func all(url: NSURL) -> Resource<[Photo]> {
-		let resource = Resource<[Photo]>(url: url) { json in
+		return Resource<[Photo]>(url: url) { json in
 			guard let
 				jsonPhotos = json["photos"] as? JSONDictionary,
 				dictionaries = jsonPhotos["photo"] as? [JSONDictionary] else { return nil }
 			
 			return dictionaries.flatMap(Photo.init)
 		}
-		
-		return resource
 	}
 }
