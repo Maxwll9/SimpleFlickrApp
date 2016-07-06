@@ -10,14 +10,15 @@ import Swinject
 
 extension SwinjectStoryboard {
 	static func setup() {
+		let bigViewModel = BigViewModel()
+		
 		defaultContainer.register(Webservice.self) { _ in Webservice() }
-		defaultContainer.register(BigViewModel.self) { _ in BigViewModel() }
 		
 		// MARK: PhotosTableViewController
 		defaultContainer.register(PhotosViewModel.self) { r in
 			PhotosViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: r.resolve(BigViewModel.self)!
+				bigViewModel: bigViewModel
 			)
 		}
 		
@@ -29,7 +30,7 @@ extension SwinjectStoryboard {
 		defaultContainer.register(PhotoDetailViewModel.self) { r in
 			PhotoDetailViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: r.resolve(BigViewModel.self)!
+				bigViewModel: bigViewModel
 			)
 		}
 		
@@ -41,7 +42,7 @@ extension SwinjectStoryboard {
 		defaultContainer.register(ProfileViewModel.self) { r in
 			ProfileViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: r.resolve(BigViewModel.self)!
+				bigViewModel: bigViewModel
 			)
 		}
 		

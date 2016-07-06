@@ -10,9 +10,9 @@ import UIKit
 
 class PhotoDetailViewModel {
 	
-	let sharedWebservice: Webservice
 	let bigViewModel: BigViewModel
-	
+	let sharedWebservice: Webservice
+
 	var photo: Photo {
 		return bigViewModel.currentPhoto
 	}
@@ -35,8 +35,8 @@ class PhotoDetailViewModel {
 		}
 	}
 	
-	func loadImage(imageView: UIImageView, completion: (() -> ())?) {
+	func loadImage(completion: ((UIImage) -> ())?) {
 		let url = photo.remoteURLs.largeImageURL
-		sharedWebservice.loadImage(imageView, url: url, completion: completion)
+		sharedWebservice.loadImage(url, completion: completion)
 	}
 }

@@ -31,6 +31,7 @@ class PhotosTableViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(true, animated: true)
+		viewModel.bigViewModel.isProfile = false
 	}
 	
 	override func viewDidLoad() {
@@ -72,16 +73,21 @@ class PhotosTableViewController: UITableViewController {
 		let photo = viewModel.photos[selectedIndex][indexPath.row]
 		let photoURL = photo.remoteURLs.smallImageURL
 		
+		cell.tag = indexPath.row
+		
 		cell.photoImageView.image = nil
 		cell.titleLabel.text = nil
 		cell.spinner.startAnimating()
 		
-		viewModel.sharedWebservice.loadImage(cell.photoImageView, url: photoURL) {
-			cell.spinner.stopAnimating()
-			cell.titleLabel.text = photo.title
-			
-			UIView.animateWithDuration(0.2) {
-				cell.photoImageView.alpha = 1
+		viewModel.sharedWebservice.loadImage(photoURL) { image in
+			if cell.tag == indexPath.row {
+				cell.photoImageView.image = image
+				cell.spinner.stopAnimating()
+				cell.titleLabel.text = photo.title
+				
+				UIView.animateWithDuration(0.2) {
+					cell.photoImageView.alpha = 1
+				}
 			}
 		}
 		
@@ -90,7 +96,7 @@ class PhotosTableViewController: UITableViewController {
 	
 	// MARK: - UITableViewDelegate
 	
-//	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//		viewModel.setCurrentPhoto(indexPath.row)
-//	}
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		viewModel.setCurrentPhoto(indexPath.row)
+	}
 }

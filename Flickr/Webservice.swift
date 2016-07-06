@@ -21,12 +21,10 @@ class Webservice {
 		}
 	}
 	
-	func loadImage(imageView: UIImageView, url: NSURL, completion: (() -> ())?) {
-		imageView.image = nil
+	func loadImage(url: NSURL, completion: ((Image) -> ())?) {
 		Nuke.taskWith(url) { result in
 			if case let.Success(image, _) = result {
-				imageView.image = image
-				completion?()
+				completion?(image)
 			}
 		}.resume()
 	}

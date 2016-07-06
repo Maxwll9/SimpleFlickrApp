@@ -33,22 +33,32 @@ class PhotoDetailTableViewController: UITableViewController {
 	// MARK: Layout
 	
 	private func configureUI() {
-		viewModel.loadImage(imageView) { [weak self] in
-			self?.spinner.stopAnimating()
-		}
-		
-		let photo = viewModel.bigViewModel.currentPhoto
+		let photo = viewModel.photo
 		navigationItem.title = photo.title
 		
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
 		
-		refreshControl = UIRefreshControl()
-		refreshControl?.addTarget(self, action: #selector(PhotoDetailTableViewController.refresh), forControlEvents: .ValueChanged)
+		profileBarButtonItem.enabled = !viewModel.bigViewModel.isProfile
+		
+		setupRefreshControl()
 		refresh()
 	}
 	
+	
+	func setupRefreshControl() {
+		refreshControl = UIRefreshControl()
+		refreshControl?.addTarget(self, action: #selector(PhotoDetailTableViewController.refresh), forControlEvents: .ValueChanged)
+	}
+	
 	func refresh() {
+		spinner.startAnimating()
+		
+		viewModel.loadImage { [weak self] image in
+			self?.imageView.image = image
+			self?.spinner.stopAnimating()
+		}
+		
 		viewModel.loadComments { [weak self] in
 			self?.tableView.reloadData()
 			self?.refreshControl?.endRefreshing()

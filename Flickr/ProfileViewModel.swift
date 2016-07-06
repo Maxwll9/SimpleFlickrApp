@@ -10,8 +10,8 @@ import UIKit
 
 class ProfileViewModel {
 	
-	let sharedWebservice: Webservice
 	let bigViewModel: BigViewModel
+	let sharedWebservice: Webservice
 	
 	var photos = [Photo]()
 	var profile: Profile!
@@ -45,7 +45,11 @@ class ProfileViewModel {
 		}
 	}
 	
-	func loadBuddyIcon(imageView: UIImageView, completion: (() -> ())? ) {
-		sharedWebservice.loadImage(imageView, url: profile.buddyiconURL, completion: completion)
+	func loadBuddyIcon(completion: ((UIImage) -> ())? ) {
+		sharedWebservice.loadImage(profile.buddyiconURL, completion: completion)
+	}
+	
+	func setCurrentPhoto(index: Int) {
+		bigViewModel.currentPhoto = photos[index]
 	}
 }

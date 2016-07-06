@@ -6,18 +6,18 @@
 //  Copyright © 2016 Maxim Nasakin. All rights reserved.
 //
 
+import UIKit
+
 class PhotosViewModel {
 	
-	let sharedWebservice: Webservice
 	let bigViewModel: BigViewModel
-	
+	let sharedWebservice: Webservice
 	
 	var selectedIndex = 0
 	var photos = [
 		[Photo](),
 		[Photo]()
 	]
-	
 	var urls = [
 		FlickrURL.getInterestingPhotosURL(),
 		FlickrURL.getRecentPhotosURL()
@@ -37,7 +37,7 @@ class PhotosViewModel {
 		}
 	}
 	
-//	func setCurrentPhoto(index: Int) {
-//		
-//	}
+	func setCurrentPhoto(index: Int) {
+		bigViewModel.currentPhoto = photos[selectedIndex][index]
+	}
 }

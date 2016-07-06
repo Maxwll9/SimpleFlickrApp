@@ -4,6 +4,7 @@ target 'Flickr' do
  	pod 'Alamofire', '~> 3.4'
 	pod 'Nuke', '~> 3.1'
 	pod 'Swinject', '~> 1.1.2'
+	pod 'OAuthSwift', '~> 0.5.2'
 
   target 'FlickrTests' do
     inherit! :search_paths

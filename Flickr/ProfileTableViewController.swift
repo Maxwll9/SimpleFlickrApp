@@ -21,6 +21,7 @@ class ProfileTableViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(true, animated: true)
+		viewModel.bigViewModel.isProfile = true
 	}
 
 	override func viewDidLoad() {
@@ -41,11 +42,19 @@ class ProfileTableViewController: UITableViewController {
 	
 	func configureUI() {
 		let profile = viewModel.profile
-		self.navigationItem.title = profile.userName
+		navigationItem.title = profile.userName
 		
-		self.usernameLabel.text = profile.realName ?? profile.userName
-		self.locationLabel.text = profile.location ?? "no location"
-		self.viewModel.loadBuddyIcon(self.buddyiconImageView, completion: nil)
+		usernameLabel.text = profile.realName ?? profile.userName
+		if let location = profile.location {
+			locationLabel.text = location
+		} else {
+			locationLabel.text = "no location"
+			locationLabel.textColor = .grayColor()
+		}
+		
+		viewModel.loadBuddyIcon { self.buddyiconImageView.image = $0 }
+		buddyiconImageView.layer.cornerRadius = buddyiconImageView.frame.size.width / 2
+		buddyiconImageView.clipsToBounds = true
 	}
 	
 	func setupRefreshControl() {
@@ -64,19 +73,28 @@ class ProfileTableViewController: UITableViewController {
 		let photo = viewModel.photos[indexPath.row]
 		let photoURL = photo.remoteURLs.smallImageURL
 		
+		cell.tag = indexPath.row
+		
 		cell.photoImageView.image = nil
 		cell.titleLabel.text = nil
 		cell.spinner.startAnimating()
 		
-		viewModel.sharedWebservice.loadImage(cell.photoImageView, url: photoURL) {
-			cell.spinner.stopAnimating()
-			cell.titleLabel.text = photo.title
-			
-			UIView.animateWithDuration(0.2) {
-				cell.photoImageView.alpha = 1
+		viewModel.sharedWebservice.loadImage(photoURL) { image in
+			if cell.tag == indexPath.row {
+				cell.photoImageView.image = image
+				cell.spinner.stopAnimating()
+				cell.titleLabel.text = photo.title
+				
+				UIView.animateWithDuration(0.2) {
+					cell.photoImageView.alpha = 1
+				}
 			}
 		}
 		
 		return cell
+	}
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		viewModel.setCurrentPhoto(indexPath.row)
 	}
 }
