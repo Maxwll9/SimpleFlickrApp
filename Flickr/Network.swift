@@ -40,7 +40,7 @@ enum CommentCompletion {
 class OAuthService {
 	private var oauthswift: OAuth1Swift?
 	
-	func authorize() {
+	func authorize(vc: UIViewController, successHandler: (() -> ())) {
 		let APIKey = "50bf07aafa817f50d769007471816e84"
 		let secret = "188c8a3c9fa1e9a4"
 		
@@ -56,10 +56,13 @@ class OAuthService {
 			accessTokenUrl: accessTokenURLString
 		)
 		
+		oauthswift.authorize_url_handler = SafariURLHandler(viewController: vc)
+		
 		oauthswift.authorizeWithCallbackURL(
 			NSURL(string: "com.NasakinMaxim.Flickr://oauthCallback")!,
 			success: { credential, response, parameters in
 				print("SUCCESS")
+				successHandler()
 			}, failure: { error in
 				print(error.localizedDescription)
 			}
@@ -68,15 +71,11 @@ class OAuthService {
 		self.oauthswift = oauthswift
 	}
 	
-	func comment(photoID: String, text: String, completion: (CommentCompletion) -> ()) {
-		let params = [
-			"photo_id": photoID,
-			"comment_text": text
-		]
-		let url = FlickrURL.flickrURL(method: .AddComment, parameters: params)
+	func addComment(photoID: String, text: String, completion: (CommentCompletion) -> ()) {
+		let urlString = FlickrURL.addCommentURLString(photoID, text: text)
 		
 		oauthswift?.client.post(
-			url.URLString,
+			urlString,
 			success: { data, response in
 				print("COMMENTED!")
 				completion(.Success)

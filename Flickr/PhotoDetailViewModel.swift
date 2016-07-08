@@ -12,7 +12,6 @@ class PhotoDetailViewModel {
 	
 	let bigViewModel: BigViewModel
 	let sharedWebservice: Webservice
-	let sharedOAuthService: OAuthService
 
 	var photo: Photo {
 		return bigViewModel.currentPhoto
@@ -20,10 +19,9 @@ class PhotoDetailViewModel {
 	
 	var comments = [Comment]()
 	
-	init(webservice: Webservice, bigViewModel: BigViewModel, oauthService: OAuthService) {
+	init(webservice: Webservice, bigViewModel: BigViewModel) {
 		self.sharedWebservice = webservice
 		self.bigViewModel = bigViewModel
-		self.sharedOAuthService = oauthService
 	}
 	
 	func loadComments(completion: (() -> ())?) {

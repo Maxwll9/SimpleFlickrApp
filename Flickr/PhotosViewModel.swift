@@ -42,4 +42,11 @@ class PhotosViewModel {
 	func setCurrentPhoto(index: Int) {
 		bigViewModel.currentPhoto = photos[selectedIndex][index]
 	}
+	
+	func authorize(vc: UIViewController, successHandler: (() -> ())) {
+		sharedOAuthService.authorize(vc) { [weak self] in
+			self?.bigViewModel.isAuthorized = true
+			successHandler()
+		}
+	}
 }

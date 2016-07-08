@@ -32,13 +32,24 @@ extension SwinjectStoryboard {
 		defaultContainer.register(PhotoDetailViewModel.self) { r in
 			PhotoDetailViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: bigViewModel,
-				oauthService:  oauthService
+				bigViewModel: bigViewModel
 			)
 		}
 		
 		defaultContainer.registerForStoryboard(PhotoDetailTableViewController.self) { r, c in
 			c.viewModel = r.resolve(PhotoDetailViewModel.self)!
+		}
+		
+		// MARK: ComposeCommentViewController
+		defaultContainer.register(ComposeCommentViewModel.self) { _ in
+			ComposeCommentViewModel(
+				bigViewModel: bigViewModel,
+				sharedOAuthService: oauthService
+			)
+		}
+		
+		defaultContainer.registerForStoryboard(ComposeCommentViewController.self) { r, c in
+			c.viewModel = r.resolve(ComposeCommentViewModel.self)!
 		}
 		
 		// MARK: ProfileTableViewController

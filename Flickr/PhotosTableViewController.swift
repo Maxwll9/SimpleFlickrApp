@@ -27,12 +27,20 @@ class PhotosTableViewController: UITableViewController {
 		}
 	}
 	
+	@IBAction func authButtonDidPress(sender: AnyObject) {
+		viewModel.authorize(self) { [weak self] in
+			self?.updateAuthButton()
+		}
+	}
+	
 	// MARK: View Lifecycle
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(true, animated: true)
 		viewModel.bigViewModel.isProfile = false
+		
+		updateAuthButton()
 	}
 	
 	override func viewDidLoad() {
@@ -40,10 +48,9 @@ class PhotosTableViewController: UITableViewController {
 	
 		refresh()
 		setupRefreshControl()
-		
-		let imageName = (viewModel.bigViewModel.isAuthorized) ? "userFilled" : "userOutline"
-		authorizeBarButtonItem.image = UIImage(named: imageName)
 	}
+	
+	// MARK: Layout
 	
 	func refresh() {
 		viewModel.loadPhotos() { [weak self] in
@@ -52,9 +59,14 @@ class PhotosTableViewController: UITableViewController {
 		}
 	}
 	
-	func setupRefreshControl() {
+	private func setupRefreshControl() {
 		refreshControl = UIRefreshControl()
 		refreshControl?.addTarget(self, action: #selector(PhotosTableViewController.refresh), forControlEvents: .ValueChanged)
+	}
+	
+	private func updateAuthButton() {
+		let imageName = (viewModel.bigViewModel.isAuthorized) ? "userFilled" : "userOutline"
+		authorizeBarButtonItem.image = UIImage(named: imageName)
 	}
 
     // MARK: - UITableViewDataSource

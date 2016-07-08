@@ -11,5 +11,5 @@ import Foundation
 class BigViewModel {
 	var currentPhoto: Photo!
 	var isProfile = false
-	var isAuthorized = true
+	var isAuthorized = false
 }

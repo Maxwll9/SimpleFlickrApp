@@ -31,6 +31,8 @@
 		B6ECA3861D180558003CC01D /* FlickrURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECA3851D180558003CC01D /* FlickrURL.swift */; };
 		B6ECA38A1D1809B4003CC01D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECA3891D1809B4003CC01D /* Network.swift */; };
 		B6ECA38C1D184CEE003CC01D /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECA38B1D184CEE003CC01D /* Resource.swift */; };
+		B6FFE0021D301CD4004F5CE0 /* ComposeCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FFE0011D301CD4004F5CE0 /* ComposeCommentViewController.swift */; };
+		B6FFE0041D301CF6004F5CE0 /* ComposeCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FFE0031D301CF6004F5CE0 /* ComposeCommentViewModel.swift */; };
 		C535FDB0E6C7E775550869D8 /* Pods_Flickr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1CCC338AF2571620CEDBFA /* Pods_Flickr.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,8 @@
 		B6ECA3851D180558003CC01D /* FlickrURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrURL.swift; sourceTree = "<group>"; };
 		B6ECA3891D1809B4003CC01D /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		B6ECA38B1D184CEE003CC01D /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		B6FFE0011D301CD4004F5CE0 /* ComposeCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeCommentViewController.swift; sourceTree = "<group>"; };
+		B6FFE0031D301CF6004F5CE0 /* ComposeCommentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeCommentViewModel.swift; sourceTree = "<group>"; };
 		B824FF38DD360FAFA4672EB1 /* Pods-Flickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flickr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flickr/Pods-Flickr.debug.xcconfig"; sourceTree = "<group>"; };
 		F9048C635ED6B792578889A1 /* Pods-FlickrUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickrUITests/Pods-FlickrUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,14 +206,6 @@
 			name = PhotoDetailTable;
 			sourceTree = "<group>";
 		};
-		B6B31A6E1D2BB6DE006A548C /* ProfileTableView */ = {
-			isa = PBXGroup;
-			children = (
-				B6B31A6C1D2BB6D4006A548C /* ProfileTableViewController.swift */,
-			);
-			name = ProfileTableView;
-			sourceTree = "<group>";
-		};
 		B6ECA37C1D180424003CC01D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +224,8 @@
 				B6541BB81D0C587000BD0707 /* Main.storyboard */,
 				B6623D5E1D2429B100E29FFF /* PhotosTableView */,
 				B6623D5F1D2429C400E29FFF /* PhotoDetailTable */,
-				B6B31A6E1D2BB6DE006A548C /* ProfileTableView */,
+				B6FFE0011D301CD4004F5CE0 /* ComposeCommentViewController.swift */,
+				B6B31A6C1D2BB6D4006A548C /* ProfileTableViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -239,6 +236,7 @@
 				B6309B4C1D2C1174005EF9FC /* BigViewModel.swift */,
 				B6ECA3831D180503003CC01D /* PhotosViewModel.swift */,
 				B6C2CCCC1D1A8F1B00236A1D /* PhotoDetailViewModel.swift */,
+				B6FFE0031D301CF6004F5CE0 /* ComposeCommentViewModel.swift */,
 				B6309B4A1D2BF25A005EF9FC /* ProfileViewModel.swift */,
 			);
 			name = ViewModels;
@@ -552,7 +550,9 @@
 				B6623D5D1D24229C00E29FFF /* CommentTableViewCell.swift in Sources */,
 				B6B78B031D27C70B000A237E /* SwinjectStoryboard+Setup.swift in Sources */,
 				B6541BB51D0C587000BD0707 /* AppDelegate.swift in Sources */,
+				B6FFE0021D301CD4004F5CE0 /* ComposeCommentViewController.swift in Sources */,
 				B6C2CCCD1D1A8F1B00236A1D /* PhotoDetailViewModel.swift in Sources */,
+				B6FFE0041D301CF6004F5CE0 /* ComposeCommentViewModel.swift in Sources */,
 				B6C2CCCF1D1A8F3F00236A1D /* Comment.swift in Sources */,
 				B6309B4B1D2BF25A005EF9FC /* ProfileViewModel.swift in Sources */,
 				B6ECA3861D180558003CC01D /* FlickrURL.swift in Sources */,

@@ -10,16 +10,21 @@ import UIKit
 
 class PhotoDetailTableViewController: UITableViewController {
 	
+	var viewModel: PhotoDetailViewModel!
+	
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var spinner: UIActivityIndicatorView!
 
 	@IBOutlet var profileBarButtonItem: UIBarButtonItem!
+	@IBOutlet var composeBarButtonItem: UIBarButtonItem!
+	
 	@IBAction func reverseButtonDidPress(sender: AnyObject) {
 		viewModel.comments = viewModel.comments.reverse()
 		tableView.reloadData()
 	}
-
-	var viewModel: PhotoDetailViewModel!
+	
+	@IBAction func unwindToPhotoDetail(segue: UIStoryboardSegue) {
+	}
 	
 	// MARK: View Lifecycle
 	
@@ -44,13 +49,14 @@ class PhotoDetailTableViewController: UITableViewController {
 		tableView.estimatedRowHeight = 100
 		
 		profileBarButtonItem.enabled = !viewModel.bigViewModel.isProfile
+		composeBarButtonItem.enabled = viewModel.bigViewModel.isAuthorized
 		
 		setupRefreshControl()
 		refresh()
 	}
 	
 	
-	func setupRefreshControl() {
+	private func setupRefreshControl() {
 		refreshControl = UIRefreshControl()
 		refreshControl?.addTarget(self, action: #selector(PhotoDetailTableViewController.refresh), forControlEvents: .ValueChanged)
 	}

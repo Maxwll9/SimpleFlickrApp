@@ -81,4 +81,12 @@ struct FlickrURL {
 		let urlString = "http://farm\(iconFarm).staticflickr.com/\(iconServer)/buddyicons/\(nsid).jpg"
 		return NSURL(string: urlString)!
 	}
+	
+	static func addCommentURLString(photoID: String, text: String) -> String {
+		let params = [
+			"photo_id": photoID,
+			"comment_text": text
+		]
+		return flickrURL(method: .AddComment, parameters: params).URLString
+	}
 }

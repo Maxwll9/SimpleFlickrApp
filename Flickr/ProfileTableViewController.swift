@@ -10,16 +10,17 @@ import UIKit
 
 class ProfileTableViewController: UITableViewController {
 
+	var viewModel: ProfileViewModel!
+	
 	@IBOutlet var buddyiconImageView: UIImageView!
 	@IBOutlet var usernameLabel: UILabel!
 	@IBOutlet var locationLabel: UILabel!
-	
-	var viewModel: ProfileViewModel!
 
 	// MARK: View Lifecycle
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		
 		navigationController?.setToolbarHidden(true, animated: true)
 		viewModel.bigViewModel.isProfile = true
 	}
@@ -31,7 +32,10 @@ class ProfileTableViewController: UITableViewController {
 		refresh()
 	}
 	
-	func refresh() {
+	private func refresh() {
+		usernameLabel.text = ""
+		locationLabel.text = ""
+		
 		viewModel.loadProfile(configureUI)
 		
 		viewModel.loadPhotos() { [weak self] in
@@ -40,7 +44,7 @@ class ProfileTableViewController: UITableViewController {
 		}
 	}
 	
-	func configureUI() {
+	private func configureUI() {
 		let profile = viewModel.profile
 		navigationItem.title = profile.userName
 		
@@ -57,7 +61,7 @@ class ProfileTableViewController: UITableViewController {
 		buddyiconImageView.clipsToBounds = true
 	}
 	
-	func setupRefreshControl() {
+	private func setupRefreshControl() {
 		refreshControl = UIRefreshControl()
 		refreshControl?.addTarget(self, action: #selector(PhotosTableViewController.refresh), forControlEvents: .ValueChanged)
 	}
