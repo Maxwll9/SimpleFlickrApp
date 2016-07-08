@@ -91,13 +91,15 @@ class PhotoDetailTableViewController: UITableViewController {
 		
 		cell.buddyIconImageView.image = nil
 		
-		viewModel.sharedWebservice.loadImage(comment.buddyIconURL) { image in
-			if cell.tag == indexPath.row {
-				cell.buddyIconImageView.image = image
-				
-				UIView.animateWithDuration(0.2) {
-					cell.buddyIconImageView.alpha = 1
-				}
+		viewModel.loadBuddyIcon(indexPath.row) { image in
+			guard
+				cell.tag == indexPath.row,
+				let image = image else { return }
+			
+			cell.buddyIconImageView.image = image
+			
+			UIView.animateWithDuration(0.2) {
+				cell.buddyIconImageView.alpha = 1
 			}
 		}
 		

@@ -21,10 +21,10 @@ class Webservice {
 		}
 	}
 	
-	func loadImage(url: NSURL, completion: ((Image) -> ())?) {
+	func loadImage(url: NSURL, completion: ((Image?) -> ())) {
 		Nuke.taskWith(url) { result in
 			if case let.Success(image, _) = result {
-				completion?(image)
+				completion(image)
 			}
 		}.resume()
 	}
@@ -38,7 +38,7 @@ enum CommentCompletion {
 }
 
 class OAuthService {
-	private var oauthswift: OAuth1Swift?
+	var oauthswift: OAuth1Swift?
 	
 	func authorize(vc: UIViewController, successHandler: (() -> ())) {
 		let APIKey = "50bf07aafa817f50d769007471816e84"

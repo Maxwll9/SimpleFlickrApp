@@ -84,14 +84,14 @@ class ProfileTableViewController: UITableViewController {
 		cell.spinner.startAnimating()
 		
 		viewModel.sharedWebservice.loadImage(photoURL) { image in
-			if cell.tag == indexPath.row {
-				cell.photoImageView.image = image
-				cell.spinner.stopAnimating()
-				cell.titleLabel.text = photo.title
-				
-				UIView.animateWithDuration(0.2) {
-					cell.photoImageView.alpha = 1
-				}
+			guard cell.tag == indexPath.row else { return }
+			
+			cell.photoImageView.image = image
+			cell.spinner.stopAnimating()
+			cell.titleLabel.text = photo.title
+			
+			UIView.animateWithDuration(0.2) {
+				cell.photoImageView.alpha = 1
 			}
 		}
 		

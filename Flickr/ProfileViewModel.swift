@@ -45,8 +45,8 @@ class ProfileViewModel {
 		}
 	}
 	
-	func loadBuddyIcon(completion: ((UIImage) -> ())? ) {
-		sharedWebservice.loadImage(profile.buddyiconURL, completion: completion)
+	func loadBuddyIcon(completion: ((UIImage?) -> ())) {
+		sharedWebservice.loadImage(profile.buddyIconURL, completion: completion)
 	}
 	
 	func setCurrentPhoto(index: Int) {

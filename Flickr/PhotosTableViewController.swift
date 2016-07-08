@@ -28,9 +28,9 @@ class PhotosTableViewController: UITableViewController {
 	}
 	
 	@IBAction func authButtonDidPress(sender: AnyObject) {
-		viewModel.authorize(self) { [weak self] in
-			self?.updateAuthButton()
-		}
+			viewModel.authorize(self) { [weak self] in
+				self?.updateAuthButton()
+			}
 	}
 	
 	// MARK: View Lifecycle

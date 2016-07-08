@@ -44,9 +44,15 @@ class PhotosViewModel {
 	}
 	
 	func authorize(vc: UIViewController, successHandler: (() -> ())) {
-		sharedOAuthService.authorize(vc) { [weak self] in
-			self?.bigViewModel.isAuthorized = true
+		if let _ = sharedOAuthService.oauthswift {
+			sharedOAuthService.oauthswift = nil
+			bigViewModel.isAuthorized = false
 			successHandler()
+		} else {
+			sharedOAuthService.authorize(vc) { [weak self] in
+				self?.bigViewModel.isAuthorized = true
+				successHandler()
+			}
 		}
 	}
 }
