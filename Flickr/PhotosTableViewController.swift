@@ -13,6 +13,7 @@ class PhotosTableViewController: UITableViewController {
 	var viewModel: PhotosViewModel!
 	
 	@IBOutlet var segmentedControl: UISegmentedControl!
+	@IBOutlet var authorizeBarButtonItem: UIBarButtonItem!
 	
 	@IBAction func segmentedControlDidChange(sender: AnyObject) {
 		let selectedIndex = segmentedControl.selectedSegmentIndex
@@ -39,6 +40,9 @@ class PhotosTableViewController: UITableViewController {
 	
 		refresh()
 		setupRefreshControl()
+		
+		let imageName = (viewModel.bigViewModel.isAuthorized) ? "userFilled" : "userOutline"
+		authorizeBarButtonItem.image = UIImage(named: imageName)
 	}
 	
 	func refresh() {
@@ -52,14 +56,6 @@ class PhotosTableViewController: UITableViewController {
 		refreshControl = UIRefreshControl()
 		refreshControl?.addTarget(self, action: #selector(PhotosTableViewController.refresh), forControlEvents: .ValueChanged)
 	}
-	
-//	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//		if segue.identifier == "ShowDetail" {
-//			if let index = tableView.indexPathsForSelectedRows?.first?.row {
-//				viewModel.setCurrentPhoto(index)
-//			}
-//		}
-//	}
 
     // MARK: - UITableViewDataSource
 
@@ -76,16 +72,15 @@ class PhotosTableViewController: UITableViewController {
 		cell.tag = indexPath.row
 		
 		cell.photoImageView.image = nil
-		cell.titleLabel.text = nil
+		cell.titleLabel.text = photo.title
 		cell.spinner.startAnimating()
 		
 		viewModel.sharedWebservice.loadImage(photoURL) { image in
 			if cell.tag == indexPath.row {
 				cell.photoImageView.image = image
 				cell.spinner.stopAnimating()
-				cell.titleLabel.text = photo.title
 				
-				UIView.animateWithDuration(0.2) {
+				UIView.animateWithDuration(1) {
 					cell.photoImageView.alpha = 1
 				}
 			}

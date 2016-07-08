@@ -17,5 +17,8 @@ class CommentTableViewCell: UITableViewCell {
 	func configure(comment: Comment) {
 		nameLabel.text = comment.authorName
 		commentLabel.text = comment.content
+		buddyIconImageView.alpha = 0
+		buddyIconImageView.layer.cornerRadius = buddyIconImageView.frame.size.width / 2
+		buddyIconImageView.clipsToBounds = true
 	}
 }

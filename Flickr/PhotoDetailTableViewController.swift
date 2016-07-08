@@ -14,6 +14,10 @@ class PhotoDetailTableViewController: UITableViewController {
 	@IBOutlet var spinner: UIActivityIndicatorView!
 
 	@IBOutlet var profileBarButtonItem: UIBarButtonItem!
+	@IBAction func reverseButtonDidPress(sender: AnyObject) {
+		viewModel.comments = viewModel.comments.reverse()
+		tableView.reloadData()
+	}
 
 	var viewModel: PhotoDetailViewModel!
 	
@@ -76,6 +80,20 @@ class PhotoDetailTableViewController: UITableViewController {
 		let comment = viewModel.comments[indexPath.row]
 		
 		cell.configure(comment)
+		
+		cell.tag = indexPath.row
+		
+		cell.buddyIconImageView.image = nil
+		
+		viewModel.sharedWebservice.loadImage(comment.buddyIconURL) { image in
+			if cell.tag == indexPath.row {
+				cell.buddyIconImageView.image = image
+				
+				UIView.animateWithDuration(0.2) {
+					cell.buddyIconImageView.alpha = 1
+				}
+			}
+		}
 		
 		return cell
 	}

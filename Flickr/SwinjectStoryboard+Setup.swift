@@ -11,6 +11,7 @@ import Swinject
 extension SwinjectStoryboard {
 	static func setup() {
 		let bigViewModel = BigViewModel()
+		let oauthService = OAuthService()
 		
 		defaultContainer.register(Webservice.self) { _ in Webservice() }
 		
@@ -18,7 +19,8 @@ extension SwinjectStoryboard {
 		defaultContainer.register(PhotosViewModel.self) { r in
 			PhotosViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: bigViewModel
+				bigViewModel: bigViewModel,
+				oauthService: oauthService
 			)
 		}
 		
@@ -30,7 +32,8 @@ extension SwinjectStoryboard {
 		defaultContainer.register(PhotoDetailViewModel.self) { r in
 			PhotoDetailViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: bigViewModel
+				bigViewModel: bigViewModel,
+				oauthService:  oauthService
 			)
 		}
 		
