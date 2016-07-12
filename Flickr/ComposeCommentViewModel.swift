@@ -11,12 +11,14 @@ class ComposeCommentViewModel {
 	let bigViewModel: BigViewModel
 	let sharedOAuthService: OAuthService
 	
+	var didSent = false
+	
 	init(bigViewModel: BigViewModel, sharedOAuthService: OAuthService) {
 		self.bigViewModel = bigViewModel
 		self.sharedOAuthService = sharedOAuthService
 	}
 	
-	func addComment(text: String, completion: (CommentCompletion) -> ()) {
+	func addComment(text: String, completion: (Bool) -> ()) {
 		sharedOAuthService.addComment(bigViewModel.currentPhoto.photoID, text: text, completion: completion)
 	}
 }

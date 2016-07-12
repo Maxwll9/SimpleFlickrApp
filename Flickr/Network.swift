@@ -12,8 +12,6 @@ import Nuke
 public typealias JSONDictionary = [String: AnyObject]
 
 class Webservice {
-	var test: Int!
-	
 	func load<A>(resource: Resource<A>, completion: A? -> ()) {
 		Alamofire.request(.GET, resource.url).responseData { response in
 			let result = response.data.flatMap(resource.parse)
@@ -31,11 +29,6 @@ class Webservice {
 }
 
 import OAuthSwift
-
-enum CommentCompletion {
-	case Success
-	case Failure(ErrorType)
-}
 
 class OAuthService {
 	var oauthswift: OAuth1Swift?
@@ -71,17 +64,17 @@ class OAuthService {
 		self.oauthswift = oauthswift
 	}
 	
-	func addComment(photoID: String, text: String, completion: (CommentCompletion) -> ()) {
+	func addComment(photoID: String, text: String, completion: (Bool) -> ()) {
 		let urlString = FlickrURL.addCommentURLString(photoID, text: text)
 		
 		oauthswift?.client.post(
 			urlString,
 			success: { data, response in
 				print("COMMENTED!")
-				completion(.Success)
+				completion(true)
 			}) { error in
 				print(error)
-				completion(.Failure(error))
+				completion(false)
 		}
 	}
 }

@@ -9,8 +9,6 @@
 import Foundation
 
 class BigViewModel {
-	let defaultBuddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
-	
 	var currentPhoto: Photo!
 	var isProfile = false
 	var isAuthorized = false

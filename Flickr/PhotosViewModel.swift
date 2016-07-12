@@ -24,10 +24,10 @@ class PhotosViewModel {
 		FlickrURL.getRecentPhotosURL()
 	]
 	
-	init(webservice: Webservice, bigViewModel: BigViewModel, oauthService: OAuthService) {
+	init(webservice: Webservice, bigViewModel: BigViewModel, sharedOAuthService: OAuthService) {
 		self.sharedWebservice = webservice
 		self.bigViewModel = bigViewModel
-		self.sharedOAuthService = oauthService
+		self.sharedOAuthService = sharedOAuthService
 	}
 	
 	func loadPhotos(completion: (() -> ())?) {

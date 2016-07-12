@@ -20,7 +20,7 @@ extension SwinjectStoryboard {
 			PhotosViewModel(
 				webservice: r.resolve(Webservice.self)!,
 				bigViewModel: bigViewModel,
-				oauthService: oauthService
+				sharedOAuthService: oauthService
 			)
 		}
 		

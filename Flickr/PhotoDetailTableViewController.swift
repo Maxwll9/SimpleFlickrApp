@@ -18,11 +18,6 @@ class PhotoDetailTableViewController: UITableViewController {
 	@IBOutlet var profileBarButtonItem: UIBarButtonItem!
 	@IBOutlet var composeBarButtonItem: UIBarButtonItem!
 	
-	@IBAction func reverseButtonDidPress(sender: AnyObject) {
-		viewModel.comments = viewModel.comments.reverse()
-		tableView.reloadData()
-	}
-	
 	@IBAction func unwindToPhotoDetail(segue: UIStoryboardSegue) {
 	}
 	
@@ -30,7 +25,6 @@ class PhotoDetailTableViewController: UITableViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
 		navigationController?.setToolbarHidden(false, animated: true)
 	}
 

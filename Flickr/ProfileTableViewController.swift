@@ -56,7 +56,10 @@ class ProfileTableViewController: UITableViewController {
 			locationLabel.textColor = .grayColor()
 		}
 		
-		viewModel.loadBuddyIcon { self.buddyiconImageView.image = $0 }
+		viewModel.loadBuddyIcon { [weak self] image in
+			self?.buddyiconImageView.image = image
+		}
+		
 		buddyiconImageView.layer.cornerRadius = buddyiconImageView.frame.size.width / 2
 		buddyiconImageView.clipsToBounds = true
 	}

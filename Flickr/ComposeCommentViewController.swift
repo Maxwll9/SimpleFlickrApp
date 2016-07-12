@@ -15,27 +15,32 @@ class ComposeCommentViewController: UIViewController {
 	@IBOutlet var commentTextView: UITextView!
 	
 	@IBAction func sendComment(sender: AnyObject) {
-		viewModel.addComment(commentTextView.text) { result in
-			var alertTitle: String
+		viewModel.addComment(commentTextView.text) { [weak self] result in
+			self?.viewModel.didSent = result
 			
-			switch result {
-			case .Success:
-				alertTitle = "Done!"
-			case .Failure(_):
-				alertTitle = "Error"
-			}
+			let alertTitle = (result) ? "Success!" : "ERROR"
+			let alertMessage = (result) ? "The message was successfully sent" : "Something went wrong"
 			
-			let alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .Alert)
+			let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
 			let action = UIAlertAction(title: "OK", style: .Default) { _ in
-				self.performSegueWithIdentifier("unwindToPhotoDetail", sender: self)
+				self?.performSegueWithIdentifier("unwindToPhotoDetail", sender: self)
 			}
 			
 			alert.addAction(action)
-			self.presentViewController(alert, animated: true, completion: nil)
+			self?.presentViewController(alert, animated: true, completion: nil)
+		}
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		guard viewModel.didSent else { return }
+		
+		if let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController {
+			destinationVC.refresh()
 		}
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		commentTextView.becomeFirstResponder()
 	}
 	
@@ -44,13 +49,14 @@ class ComposeCommentViewController: UIViewController {
 		setupKeyboardNotifications()
 	}
 	
+	// MARK: Setup Keyboard
 	
 	func setupKeyboardNotifications() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ComposeCommentViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ComposeCommentViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
-	func keyboardWasShown(aNotification:NSNotification) {
+	func keyboardWasShown(aNotification: NSNotification) {
 		let info = aNotification.userInfo
 		let infoNSValue = info![UIKeyboardFrameBeginUserInfoKey] as! NSValue
 		let kbSize = infoNSValue.CGRectValue().size
@@ -59,7 +65,7 @@ class ComposeCommentViewController: UIViewController {
 		commentTextView.scrollIndicatorInsets.bottom = contentBottomInsets
 	}
 	
-	func keyboardWillBeHidden(aNotification:NSNotification) {
+	func keyboardWillBeHidden(aNotification: NSNotification) {
 		let contentBottomInsets = UIEdgeInsetsZero.bottom
 		commentTextView.contentInset.bottom = contentBottomInsets
 		commentTextView.scrollIndicatorInsets.bottom = contentBottomInsets

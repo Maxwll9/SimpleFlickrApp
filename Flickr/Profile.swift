@@ -14,7 +14,7 @@ struct Profile {
 	let userID: String
 	
 	let location: String?
-	var buddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
+	let buddyIconURL: NSURL
 }
 
 extension Profile {
@@ -25,10 +25,12 @@ extension Profile {
 			else { return nil }
 		
 		if let
-			nsid = dictionary["nsid"] as? String,
-			iconServer = dictionary["iconserver"] as? String,
-			iconFarm = dictionary["iconfarm"] as? Int {
+			iconFarm = dictionary["iconfarm"] as? Int where iconFarm > 0,
+			let nsid = dictionary["nsid"] as? String,
+			iconServer = dictionary["iconserver"] as? String {
 				self.buddyIconURL = FlickrURL.getBuddyiconURL(iconFarm, iconServer: iconServer, nsid: nsid)
+		} else {
+			self.buddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
 		}
 		
 		self.location = (dictionary["location"] as? JSONDictionary)?["_content"] as? String
