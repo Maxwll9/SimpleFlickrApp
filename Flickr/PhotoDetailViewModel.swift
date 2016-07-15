@@ -10,23 +10,23 @@ import UIKit
 
 class PhotoDetailViewModel {
 	
-	let bigViewModel: BigViewModel
+	let stateViewModel: StateViewModel
 	let sharedWebservice: Webservice
-
+	
 	var photo: Photo {
-		return bigViewModel.currentPhoto
+		return stateViewModel.currentPhoto
 	}
 	
 	var comments = [Comment]()
 	
-	init(webservice: Webservice, bigViewModel: BigViewModel) {
+	init(webservice: Webservice, stateViewModel: StateViewModel) {
 		self.sharedWebservice = webservice
-		self.bigViewModel = bigViewModel
+		self.stateViewModel = stateViewModel
 	}
 	
 	func loadComments(completion: (() -> ())?) {
 		let url = FlickrURL.getCommentsForPhoto(photo.photoID)
-
+		
 		sharedWebservice.load(Comment.all(url)) { [weak self] result in
 			if let result = result {
 				self?.comments = result
@@ -43,5 +43,27 @@ class PhotoDetailViewModel {
 	func loadBuddyIcon(index: Int, completion: (UIImage?) -> ()) {
 		let url = comments[index].buddyIconURL
 		sharedWebservice.loadImage(url, completion: completion)
+	}
+	
+	func cellForRow(cell: CommentTableViewCell, indexPathRow row: Int) {
+		let comment = comments[row]
+		
+		cell.configure(comment)
+		
+		cell.tag = row
+		
+		cell.buddyIconImageView.image = nil
+		
+		loadBuddyIcon(row) { image in
+			guard
+				cell.tag == row,
+				let image = image else { return }
+			
+			cell.buddyIconImageView.image = image
+			
+			UIView.animateWithDuration(0.2) {
+				cell.buddyIconImageView.alpha = 1
+			}
+		}
 	}
 }

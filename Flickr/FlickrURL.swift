@@ -23,6 +23,8 @@ struct FlickrURL {
 	private static let baseURLString = "https://api.flickr.com/services/rest"
 	private static let APIKey = "50bf07aafa817f50d769007471816e84"
 	
+	static let defaultBuddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
+	
 	static func flickrURL(method method: Method, parameters: [String: String]?) -> NSURL {
 		let components = NSURLComponents(string: baseURLString)!
 		

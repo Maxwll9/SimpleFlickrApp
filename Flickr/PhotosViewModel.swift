@@ -10,7 +10,7 @@ import UIKit
 
 class PhotosViewModel {
 	
-	let bigViewModel: BigViewModel
+	let stateViewModel: StateViewModel
 	let sharedWebservice: Webservice
 	let sharedOAuthService: OAuthService
 	
@@ -24,9 +24,9 @@ class PhotosViewModel {
 		FlickrURL.getRecentPhotosURL()
 	]
 	
-	init(webservice: Webservice, bigViewModel: BigViewModel, sharedOAuthService: OAuthService) {
+	init(webservice: Webservice, stateViewModel: StateViewModel, sharedOAuthService: OAuthService) {
 		self.sharedWebservice = webservice
-		self.bigViewModel = bigViewModel
+		self.stateViewModel = stateViewModel
 		self.sharedOAuthService = sharedOAuthService
 	}
 	
@@ -40,18 +40,34 @@ class PhotosViewModel {
 	}
 	
 	func setCurrentPhoto(index: Int) {
-		bigViewModel.currentPhoto = photos[selectedIndex][index]
+		stateViewModel.currentPhoto = photos[selectedIndex][index]
 	}
 	
-	func authorize(vc: UIViewController, successHandler: (() -> ())) {
-		if let _ = sharedOAuthService.oauthswift {
-			sharedOAuthService.oauthswift = nil
-			bigViewModel.isAuthorized = false
+	func toggleAuthorize(vc: UIViewController, successHandler: (() -> ())) {
+		sharedOAuthService.toggleAuth(vc) { [weak self] isAuthorized in
+			self?.stateViewModel.isAuthorized = isAuthorized
 			successHandler()
-		} else {
-			sharedOAuthService.authorize(vc) { [weak self] in
-				self?.bigViewModel.isAuthorized = true
-				successHandler()
+		}
+	}
+	
+	func cellForRow(cell: PhotoTableViewCell, indexPathRow row: Int) {
+		let photo = photos[selectedIndex][row]
+		let photoURL = photo.remoteURLs.smallImageURL
+		
+		cell.tag = row
+		
+		cell.photoImageView.image = nil
+		cell.titleLabel.text = photo.title
+		cell.spinner.startAnimating()
+		
+		sharedWebservice.loadImage(photoURL) { image in
+			if cell.tag == row {
+				cell.photoImageView.image = image
+				cell.spinner.stopAnimating()
+				
+				UIView.animateWithDuration(1) {
+					cell.photoImageView.alpha = 1
+				}
 			}
 		}
 	}

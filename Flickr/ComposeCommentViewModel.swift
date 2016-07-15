@@ -8,17 +8,20 @@
 
 class ComposeCommentViewModel {
 	
-	let bigViewModel: BigViewModel
+	let stateViewModel: StateViewModel
 	let sharedOAuthService: OAuthService
 	
 	var didSent = false
 	
-	init(bigViewModel: BigViewModel, sharedOAuthService: OAuthService) {
-		self.bigViewModel = bigViewModel
+	init(stateViewModel: StateViewModel, sharedOAuthService: OAuthService) {
+		self.stateViewModel = stateViewModel
 		self.sharedOAuthService = sharedOAuthService
 	}
 	
 	func addComment(text: String, completion: (Bool) -> ()) {
-		sharedOAuthService.addComment(bigViewModel.currentPhoto.photoID, text: text, completion: completion)
+		sharedOAuthService.addComment(stateViewModel.currentPhoto.photoID, text: text) { [weak self] result in
+			self?.didSent = result
+			completion(result)
+		}
 	}
 }

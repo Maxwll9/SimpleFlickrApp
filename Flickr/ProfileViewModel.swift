@@ -10,19 +10,19 @@ import UIKit
 
 class ProfileViewModel {
 	
-	let bigViewModel: BigViewModel
+	let stateViewModel: StateViewModel
 	let sharedWebservice: Webservice
 	
 	var photos = [Photo]()
 	var profile: Profile!
 	
 	var userID: String {
-		return bigViewModel.currentPhoto.ownerID
+		return stateViewModel.currentPhoto.ownerID
 	}
 	
-	init(webservice: Webservice, bigViewModel: BigViewModel) {
+	init(webservice: Webservice, stateViewModel: StateViewModel) {
 		self.sharedWebservice = webservice
-		self.bigViewModel = bigViewModel
+		self.stateViewModel = stateViewModel
 	}
 	
 	func loadPhotos(completion: (() -> ())?) {
@@ -50,6 +50,29 @@ class ProfileViewModel {
 	}
 	
 	func setCurrentPhoto(index: Int) {
-		bigViewModel.currentPhoto = photos[index]
+		stateViewModel.currentPhoto = photos[index]
+	}
+	
+	func cellForRow(cell: PhotoTableViewCell, indexPathRow row: Int) {
+		let photo = photos[row]
+		let photoURL = photo.remoteURLs.smallImageURL
+		
+		cell.tag = row
+		
+		cell.photoImageView.image = nil
+		cell.titleLabel.text = nil
+		cell.spinner.startAnimating()
+		
+		sharedWebservice.loadImage(photoURL) { image in
+			guard cell.tag == row else { return }
+			
+			cell.photoImageView.image = image
+			cell.spinner.stopAnimating()
+			cell.titleLabel.text = photo.title
+			
+			UIView.animateWithDuration(0.2) {
+				cell.photoImageView.alpha = 1
+			}
+		}
 	}
 }

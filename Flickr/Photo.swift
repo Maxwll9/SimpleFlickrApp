@@ -13,8 +13,8 @@ struct Photo {
 	let title: String
 	
 	let remoteURLs: (
-		smallImageURL: NSURL,
-		largeImageURL: NSURL
+	smallImageURL: NSURL,
+	largeImageURL: NSURL
 	)
 	
 	let ownerID: String
@@ -31,7 +31,7 @@ extension Photo {
 		
 		let hugeImageURLString = dictionary["url_h"] as? String
 		let mediumImageURLString = dictionary["url_z"] as? String
-
+		
 		let largeImageURLString = hugeImageURLString ?? mediumImageURLString ?? smallImageURLString
 		let largeImageURL = NSURL(string: largeImageURLString)!
 		

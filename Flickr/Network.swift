@@ -24,16 +24,27 @@ class Webservice {
 			if case let.Success(image, _) = result {
 				completion(image)
 			}
-		}.resume()
+			}.resume()
 	}
 }
 
 import OAuthSwift
 
 class OAuthService {
-	var oauthswift: OAuth1Swift?
+	private var oauthswift: OAuth1Swift?
 	
-	func authorize(vc: UIViewController, successHandler: (() -> ())) {
+	func toggleAuth(vc: UIViewController, successHandler: (Bool) -> ()) {
+		if let _ = oauthswift {
+			oauthswift = nil
+			successHandler(false)
+		} else {
+			authorize(vc) {
+				successHandler(true)
+			}
+		}
+	}
+	
+	private func authorize(vc: UIViewController, successHandler: (() -> ())) {
 		let APIKey = "50bf07aafa817f50d769007471816e84"
 		let secret = "188c8a3c9fa1e9a4"
 		
@@ -72,9 +83,9 @@ class OAuthService {
 			success: { data, response in
 				print("COMMENTED!")
 				completion(true)
-			}) { error in
-				print(error)
-				completion(false)
+		}) { error in
+			print(error)
+			completion(false)
 		}
 	}
 }

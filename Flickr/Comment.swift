@@ -12,7 +12,7 @@ struct Comment {
 	let authorName: String
 	let authorID: String
 	let content: String
-
+	
 	let buddyIconURL: NSURL
 }
 
@@ -25,9 +25,9 @@ extension Comment {
 		
 		if let iconServer = dictionary["iconserver"] as? String,
 			iconFarm = dictionary["iconfarm"] as? Int where iconFarm > 0 {
-				self.buddyIconURL = FlickrURL.getBuddyiconURL(iconFarm, iconServer: iconServer, nsid: author)
+			self.buddyIconURL = FlickrURL.getBuddyiconURL(iconFarm, iconServer: iconServer, nsid: author)
 		} else {
-			self.buddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
+			self.buddyIconURL = FlickrURL.defaultBuddyIconURL
 		}
 		
 		self.authorName = authorName

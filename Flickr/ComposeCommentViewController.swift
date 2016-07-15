@@ -11,13 +11,11 @@ import UIKit
 class ComposeCommentViewController: UIViewController {
 	
 	var viewModel: ComposeCommentViewModel!
-
+	
 	@IBOutlet var commentTextView: UITextView!
 	
 	@IBAction func sendComment(sender: AnyObject) {
 		viewModel.addComment(commentTextView.text) { [weak self] result in
-			self?.viewModel.didSent = result
-			
 			let alertTitle = (result) ? "Success!" : "ERROR"
 			let alertMessage = (result) ? "The message was successfully sent" : "Something went wrong"
 			
@@ -32,9 +30,8 @@ class ComposeCommentViewController: UIViewController {
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		guard viewModel.didSent else { return }
-		
-		if let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController {
+		if viewModel.didSent,
+			let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController {
 			destinationVC.refresh()
 		}
 	}

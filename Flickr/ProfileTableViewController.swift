@@ -9,22 +9,22 @@
 import UIKit
 
 class ProfileTableViewController: UITableViewController {
-
+	
 	var viewModel: ProfileViewModel!
 	
 	@IBOutlet var buddyiconImageView: UIImageView!
 	@IBOutlet var usernameLabel: UILabel!
 	@IBOutlet var locationLabel: UILabel!
-
+	
 	// MARK: View Lifecycle
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
 		navigationController?.setToolbarHidden(true, animated: true)
-		viewModel.bigViewModel.isProfile = true
+		viewModel.stateViewModel.isProfile = true
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -68,36 +68,16 @@ class ProfileTableViewController: UITableViewController {
 		refreshControl = UIRefreshControl()
 		refreshControl?.addTarget(self, action: #selector(PhotosTableViewController.refresh), forControlEvents: .ValueChanged)
 	}
-
-    // MARK: - UITableViewDataSource
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.photos.count
-    }
+	
+	// MARK: - UITableViewDataSource
+	
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.photos.count
+	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoTableViewCell
-		let photo = viewModel.photos[indexPath.row]
-		let photoURL = photo.remoteURLs.smallImageURL
-		
-		cell.tag = indexPath.row
-		
-		cell.photoImageView.image = nil
-		cell.titleLabel.text = nil
-		cell.spinner.startAnimating()
-		
-		viewModel.sharedWebservice.loadImage(photoURL) { image in
-			guard cell.tag == indexPath.row else { return }
-			
-			cell.photoImageView.image = image
-			cell.spinner.stopAnimating()
-			cell.titleLabel.text = photo.title
-			
-			UIView.animateWithDuration(0.2) {
-				cell.photoImageView.alpha = 1
-			}
-		}
-		
+		viewModel.cellForRow(cell, indexPathRow: indexPath.row)
 		return cell
 	}
 	

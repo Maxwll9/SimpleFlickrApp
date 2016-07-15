@@ -28,7 +28,7 @@ class PhotosTableViewController: UITableViewController {
 	}
 	
 	@IBAction func authButtonDidPress(sender: AnyObject) {
-		viewModel.authorize(self) { [weak self] in
+		viewModel.toggleAuthorize(self) { [weak self] in
 			self?.updateAuthButton()
 		}
 	}
@@ -38,14 +38,14 @@ class PhotosTableViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(true, animated: true)
-		viewModel.bigViewModel.isProfile = false
+		viewModel.stateViewModel.isProfile = false
 		
 		updateAuthButton()
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-	
+		
 		refresh()
 		setupRefreshControl()
 	}
@@ -65,39 +65,19 @@ class PhotosTableViewController: UITableViewController {
 	}
 	
 	private func updateAuthButton() {
-		let imageName = (viewModel.bigViewModel.isAuthorized) ? "userFilled" : "userOutline"
+		let imageName = (viewModel.stateViewModel.isAuthorized) ? "userFilled" : "userOutline"
 		authorizeBarButtonItem.image = UIImage(named: imageName)
 	}
-
-    // MARK: - UITableViewDataSource
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.photos[viewModel.selectedIndex].count
-    }
+	
+	// MARK: - UITableViewDataSource
+	
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.photos[viewModel.selectedIndex].count
+	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoTableViewCell
-		let selectedIndex = viewModel.selectedIndex
-		let photo = viewModel.photos[selectedIndex][indexPath.row]
-		let photoURL = photo.remoteURLs.smallImageURL
-		
-		cell.tag = indexPath.row
-		
-		cell.photoImageView.image = nil
-		cell.titleLabel.text = photo.title
-		cell.spinner.startAnimating()
-		
-		viewModel.sharedWebservice.loadImage(photoURL) { image in
-			if cell.tag == indexPath.row {
-				cell.photoImageView.image = image
-				cell.spinner.stopAnimating()
-				
-				UIView.animateWithDuration(1) {
-					cell.photoImageView.alpha = 1
-				}
-			}
-		}
-		
+		viewModel.cellForRow(cell, indexPathRow: indexPath.row)
 		return cell
 	}
 	

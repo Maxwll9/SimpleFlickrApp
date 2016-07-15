@@ -28,9 +28,9 @@ extension Profile {
 			iconFarm = dictionary["iconfarm"] as? Int where iconFarm > 0,
 			let nsid = dictionary["nsid"] as? String,
 			iconServer = dictionary["iconserver"] as? String {
-				self.buddyIconURL = FlickrURL.getBuddyiconURL(iconFarm, iconServer: iconServer, nsid: nsid)
+			self.buddyIconURL = FlickrURL.getBuddyiconURL(iconFarm, iconServer: iconServer, nsid: nsid)
 		} else {
-			self.buddyIconURL = NSURL(string: "https://www.flickr.com/images/buddyicon.gif")!
+			self.buddyIconURL = FlickrURL.defaultBuddyIconURL
 		}
 		
 		self.location = (dictionary["location"] as? JSONDictionary)?["_content"] as? String

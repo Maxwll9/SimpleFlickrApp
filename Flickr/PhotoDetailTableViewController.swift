@@ -14,7 +14,7 @@ class PhotoDetailTableViewController: UITableViewController {
 	
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var spinner: UIActivityIndicatorView!
-
+	
 	@IBOutlet var profileBarButtonItem: UIBarButtonItem!
 	@IBOutlet var composeBarButtonItem: UIBarButtonItem!
 	
@@ -27,23 +27,22 @@ class PhotoDetailTableViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(false, animated: true)
 	}
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		configureUI()
-    }
+	}
 	
 	// MARK: Layout
 	
 	private func configureUI() {
-		let photo = viewModel.photo
-		navigationItem.title = photo.title
+		navigationItem.title = viewModel.photo.title
 		
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
 		
-		profileBarButtonItem.enabled = !viewModel.bigViewModel.isProfile
-		composeBarButtonItem.enabled = viewModel.bigViewModel.isAuthorized
+		profileBarButtonItem.enabled = !viewModel.stateViewModel.isProfile
+		composeBarButtonItem.enabled = viewModel.stateViewModel.isAuthorized
 		
 		setupRefreshControl()
 		refresh()
@@ -77,27 +76,8 @@ class PhotoDetailTableViewController: UITableViewController {
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
-		let comment = viewModel.comments[indexPath.row]
-		
-		cell.configure(comment)
-		
-		cell.tag = indexPath.row
-		
-		cell.buddyIconImageView.image = nil
-		
-		viewModel.loadBuddyIcon(indexPath.row) { image in
-			guard
-				cell.tag == indexPath.row,
-				let image = image else { return }
-			
-			cell.buddyIconImageView.image = image
-			
-			UIView.animateWithDuration(0.2) {
-				cell.buddyIconImageView.alpha = 1
-			}
-		}
-		
+		viewModel.cellForRow(cell, indexPathRow: indexPath.row)
 		return cell
 	}
-
+	
 }

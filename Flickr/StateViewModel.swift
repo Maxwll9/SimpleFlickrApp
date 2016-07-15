@@ -1,5 +1,5 @@
 //
-//  BigViewModel.swift
+//  StateViewModel.swift
 //  Flickr
 //
 //  Created by Maxim Nasakin on 05/07/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BigViewModel {
+class StateViewModel {
 	var currentPhoto: Photo!
 	var isProfile = false
 	var isAuthorized = false

@@ -10,7 +10,7 @@ import Swinject
 
 extension SwinjectStoryboard {
 	static func setup() {
-		let bigViewModel = BigViewModel()
+		let stateViewModel = StateViewModel()
 		let oauthService = OAuthService()
 		
 		defaultContainer.register(Webservice.self) { _ in Webservice() }
@@ -19,7 +19,7 @@ extension SwinjectStoryboard {
 		defaultContainer.register(PhotosViewModel.self) { r in
 			PhotosViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: bigViewModel,
+				stateViewModel: stateViewModel,
 				sharedOAuthService: oauthService
 			)
 		}
@@ -32,7 +32,7 @@ extension SwinjectStoryboard {
 		defaultContainer.register(PhotoDetailViewModel.self) { r in
 			PhotoDetailViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: bigViewModel
+				stateViewModel: stateViewModel
 			)
 		}
 		
@@ -43,7 +43,7 @@ extension SwinjectStoryboard {
 		// MARK: ComposeCommentViewController
 		defaultContainer.register(ComposeCommentViewModel.self) { _ in
 			ComposeCommentViewModel(
-				bigViewModel: bigViewModel,
+				stateViewModel: stateViewModel,
 				sharedOAuthService: oauthService
 			)
 		}
@@ -56,7 +56,7 @@ extension SwinjectStoryboard {
 		defaultContainer.register(ProfileViewModel.self) { r in
 			ProfileViewModel(
 				webservice: r.resolve(Webservice.self)!,
-				bigViewModel: bigViewModel
+				stateViewModel: stateViewModel
 			)
 		}
 		
