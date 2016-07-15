@@ -22,7 +22,12 @@ class ProfileTableViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		
 		navigationController?.setToolbarHidden(true, animated: true)
-		viewModel.stateViewModel.isProfile = true
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController {
+			destinationVC.profileBarButtonItem.enabled = false
+		}
 	}
 	
 	override func viewDidLoad() {
@@ -49,6 +54,7 @@ class ProfileTableViewController: UITableViewController {
 		navigationItem.title = profile.userName
 		
 		usernameLabel.text = profile.realName ?? profile.userName
+		
 		if let location = profile.location {
 			locationLabel.text = location
 		} else {

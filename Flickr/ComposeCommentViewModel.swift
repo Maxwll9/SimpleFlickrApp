@@ -9,7 +9,7 @@
 class ComposeCommentViewModel {
 	
 	let stateViewModel: StateViewModel
-	let sharedOAuthService: OAuthService
+	private let sharedOAuthService: OAuthService
 	
 	var didSent = false
 	

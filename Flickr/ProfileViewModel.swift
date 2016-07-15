@@ -11,7 +11,7 @@ import UIKit
 class ProfileViewModel {
 	
 	let stateViewModel: StateViewModel
-	let sharedWebservice: Webservice
+	private let sharedWebservice: Webservice
 	
 	var photos = [Photo]()
 	var profile: Profile!

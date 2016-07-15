@@ -41,7 +41,6 @@ class PhotoDetailTableViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 100
 		
-		profileBarButtonItem.enabled = !viewModel.stateViewModel.isProfile
 		composeBarButtonItem.enabled = viewModel.stateViewModel.isAuthorized
 		
 		setupRefreshControl()

@@ -18,12 +18,8 @@ class PhotosTableViewController: UITableViewController {
 	@IBAction func segmentedControlDidChange(sender: AnyObject) {
 		let selectedIndex = segmentedControl.selectedSegmentIndex
 		
-		viewModel.selectedIndex = selectedIndex
-		
-		if viewModel.photos[selectedIndex].count == 0 {
-			refresh()
-		} else {
-			tableView.reloadData()
+		viewModel.changeSegment(selectedIndex) { [weak self] in
+			self?.tableView.reloadData()
 		}
 	}
 	
@@ -38,7 +34,6 @@ class PhotosTableViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(true, animated: true)
-		viewModel.stateViewModel.isProfile = false
 		
 		updateAuthButton()
 	}

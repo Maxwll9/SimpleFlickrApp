@@ -11,7 +11,7 @@ import UIKit
 class PhotoDetailViewModel {
 	
 	let stateViewModel: StateViewModel
-	let sharedWebservice: Webservice
+	private let sharedWebservice: Webservice
 	
 	var photo: Photo {
 		return stateViewModel.currentPhoto

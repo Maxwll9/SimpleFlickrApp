@@ -11,8 +11,8 @@ import UIKit
 class PhotosViewModel {
 	
 	let stateViewModel: StateViewModel
-	let sharedWebservice: Webservice
-	let sharedOAuthService: OAuthService
+	private let sharedWebservice: Webservice
+	private let sharedOAuthService: OAuthService
 	
 	var selectedIndex = 0
 	var photos = [
@@ -30,17 +30,27 @@ class PhotosViewModel {
 		self.sharedOAuthService = sharedOAuthService
 	}
 	
-	func loadPhotos(completion: (() -> ())?) {
+	func loadPhotos(completion: () -> ()) {
 		sharedWebservice.load(Photo.all(urls[selectedIndex])) { [weak self] result in
 			if let result = result {
 				self?.photos[self!.selectedIndex] = result
 			}
-			completion?()
+			completion()
 		}
 	}
 	
 	func setCurrentPhoto(index: Int) {
 		stateViewModel.currentPhoto = photos[selectedIndex][index]
+	}
+	
+	func changeSegment(selectedIndex: Int, completion: () -> ()) {
+		self.selectedIndex = selectedIndex
+		
+		if photos[selectedIndex].count == 0 {
+			loadPhotos(completion)
+		} else {
+			completion()
+		}
 	}
 	
 	func toggleAuthorize(vc: UIViewController, successHandler: (() -> ())) {
