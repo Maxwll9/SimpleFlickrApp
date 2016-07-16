@@ -46,7 +46,7 @@ class PhotosViewModel {
 	func changeSegment(selectedIndex: Int, completion: () -> ()) {
 		self.selectedIndex = selectedIndex
 		
-		if photos[selectedIndex].count == 0 {
+		if photos[selectedIndex].isEmpty {
 			loadPhotos(completion)
 		} else {
 			completion()
