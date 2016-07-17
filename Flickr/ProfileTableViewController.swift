@@ -25,9 +25,8 @@ class ProfileTableViewController: UITableViewController {
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController {
-			destinationVC.profileBarButtonItem.enabled = false
-		}
+		let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController
+		destinationVC?.profileBarButtonItem.enabled = false
 	}
 	
 	override func viewDidLoad() {

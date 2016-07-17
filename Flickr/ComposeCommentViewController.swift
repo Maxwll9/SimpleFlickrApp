@@ -30,9 +30,9 @@ class ComposeCommentViewController: UIViewController {
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if viewModel.didSent,
-			let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController {
-			destinationVC.refresh()
+		if viewModel.didSent {
+			let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController
+			destinationVC?.refresh()
 		}
 	}
 	

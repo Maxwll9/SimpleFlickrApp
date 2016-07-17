@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (3.4.1)
-  - Nuke (3.1.1)
+  - Nuke (3.1.3)
   - OAuthSwift (0.5.2)
   - Swinject (1.1.2)
 
@@ -12,10 +12,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  Nuke: 75fb602d879372a68679293fdfbd758a1769880d
+  Nuke: d951142c7499e18f242e59ae7fb95a021a2a4974
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
   Swinject: 3debc5ac926dcd1be00947265a9db7a5f31b272a
 
 PODFILE CHECKSUM: 223a8003160e9e0269d915565af7c155ffb285f0
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.1
