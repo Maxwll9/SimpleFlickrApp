@@ -36,8 +36,9 @@ class PhotoDetailViewModel {
 	}
 	
 	func loadImage(completion: (UIImage?) -> ()) {
-		let url = photo.remoteURLs.largeImageURL
-		sharedWebservice.loadImage(url, completion: completion)
+		let largeImageURL = photo.largeImageURL
+		let smallImageURL = photo.smallImageURL
+		sharedWebservice.loadImage(largeImageURL ?? smallImageURL, completion: completion)
 	}
 	
 	func loadBuddyIcon(index: Int, completion: (UIImage?) -> ()) {

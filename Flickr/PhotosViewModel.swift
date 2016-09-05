@@ -62,7 +62,7 @@ class PhotosViewModel {
 	
 	func cellForRow(cell: PhotoTableViewCell, indexPathRow row: Int) {
 		let photo = photos[selectedIndex][row]
-		let photoURL = photo.remoteURLs.smallImageURL
+		let photoURL = photo.smallImageURL
 		
 		cell.tag = row
 		

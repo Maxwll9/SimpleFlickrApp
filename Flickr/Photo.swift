@@ -12,16 +12,18 @@ struct Photo {
 	let photoID: String
 	let title: String
 	
-	let remoteURLs: (
-	smallImageURL: NSURL,
-	largeImageURL: NSURL
-	)
+	let smallImageURL: NSURL
+	let largeImageURL: NSURL?
 	
 	let ownerID: String
 }
 
 extension Photo {
 	init?(dictionary: JSONDictionary) {
+		print(dictionary)
+		
+		
+		
 		guard let
 			photoID = dictionary["id"] as? String,
 			title = dictionary["title"] as? String,
@@ -32,12 +34,17 @@ extension Photo {
 		let hugeImageURLString = dictionary["url_h"] as? String
 		let mediumImageURLString = dictionary["url_z"] as? String
 		
-		let largeImageURLString = hugeImageURLString ?? mediumImageURLString ?? smallImageURLString
-		let largeImageURL = NSURL(string: largeImageURLString)!
+		let largeImageURLString = hugeImageURLString ?? mediumImageURLString
+		
+		if let urlString = largeImageURLString, url = NSURL(string: urlString) {
+			self.largeImageURL = url
+		} else {
+			self.largeImageURL = nil
+		}
 		
 		self.photoID = photoID
 		self.title = title
-		self.remoteURLs = (smallImageURL, largeImageURL)
+		self.smallImageURL = smallImageURL
 		self.ownerID = ownerID
 	}
 }

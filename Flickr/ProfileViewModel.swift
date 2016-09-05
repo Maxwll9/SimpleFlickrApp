@@ -55,7 +55,7 @@ class ProfileViewModel {
 	
 	func cellForRow(cell: PhotoTableViewCell, indexPathRow row: Int) {
 		let photo = photos[row]
-		let photoURL = photo.remoteURLs.smallImageURL
+		let photoURL = photo.smallImageURL
 		
 		cell.tag = row
 		

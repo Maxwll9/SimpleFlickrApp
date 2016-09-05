@@ -24,7 +24,7 @@ class Webservice {
 			if case let.Success(image, _) = result {
 				completion(image)
 			}
-			}.resume()
+		}.resume()
 	}
 }
 
