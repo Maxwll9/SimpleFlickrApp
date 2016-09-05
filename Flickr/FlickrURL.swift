@@ -79,7 +79,14 @@ struct FlickrURL {
 		return flickrURL(method: .GetPublicPhotos, parameters: params)
 	}
 	
-	static func getBuddyiconURL(iconFarm: Int, iconServer: String, nsid: String) -> NSURL {
+	static func getBuddyiconURL(dictionary: JSONDictionary) -> NSURL {
+		guard let
+			iconServer = dictionary["iconserver"] as? String,
+			nsid = dictionary["author"] as? String ?? dictionary["nsid"] as? String,
+			iconFarm = dictionary["iconfarm"] as? Int where iconFarm > 0 else {
+			return defaultBuddyIconURL
+		}
+		
 		let urlString = "http://farm\(iconFarm).staticflickr.com/\(iconServer)/buddyicons/\(nsid).jpg"
 		return NSURL(string: urlString)!
 	}

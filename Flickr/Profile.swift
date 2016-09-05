@@ -24,18 +24,10 @@ extension Profile {
 			userName = (dictionary["username"] as? JSONDictionary)?["_content"] as? String
 			else { return nil }
 		
-		if let
-			iconFarm = dictionary["iconfarm"] as? Int where iconFarm > 0,
-			let nsid = dictionary["nsid"] as? String,
-			iconServer = dictionary["iconserver"] as? String {
-			self.buddyIconURL = FlickrURL.getBuddyiconURL(iconFarm, iconServer: iconServer, nsid: nsid)
-		} else {
-			self.buddyIconURL = FlickrURL.defaultBuddyIconURL
-		}
 		
 		self.location = (dictionary["location"] as? JSONDictionary)?["_content"] as? String
 		self.realName = (dictionary["realname"] as? JSONDictionary)?["_content"] as? String
-		
+		self.buddyIconURL = FlickrURL.getBuddyiconURL(dictionary)
 		self.userName = userName
 		self.userID = id
 	}

@@ -20,6 +20,7 @@
 		B6B31A6D1D2BB6D4006A548C /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B31A6C1D2BB6D4006A548C /* ProfileTableViewController.swift */; };
 		B6B31A701D2BBE88006A548C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B31A6F1D2BBE88006A548C /* Profile.swift */; };
 		B6B5C4911D7D394D002B01FA /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5C4901D7D394D002B01FA /* PhotoTests.swift */; };
+		B6B5C4931D7D5349002B01FA /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5C4921D7D5349002B01FA /* CommentTests.swift */; };
 		B6B78B031D27C70B000A237E /* SwinjectStoryboard+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B78B021D27C70B000A237E /* SwinjectStoryboard+Setup.swift */; };
 		B6C2CCC71D19B6C100236A1D /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2CCC61D19B6C100236A1D /* PhotoTableViewCell.swift */; };
 		B6C2CCC91D19C58600236A1D /* PhotoDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2CCC81D19C58600236A1D /* PhotoDetailTableViewController.swift */; };
@@ -78,6 +79,7 @@
 		B6B31A6C1D2BB6D4006A548C /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B6B31A6F1D2BBE88006A548C /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		B6B5C4901D7D394D002B01FA /* PhotoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTests.swift; sourceTree = "<group>"; };
+		B6B5C4921D7D5349002B01FA /* CommentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTests.swift; sourceTree = "<group>"; };
 		B6B78B021D27C70B000A237E /* SwinjectStoryboard+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwinjectStoryboard+Setup.swift"; sourceTree = "<group>"; };
 		B6C2CCC61D19B6C100236A1D /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		B6C2CCC81D19C58600236A1D /* PhotoDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				B6B5C4901D7D394D002B01FA /* PhotoTests.swift */,
+				B6B5C4921D7D5349002B01FA /* CommentTests.swift */,
 				B6541BCB1D0C587000BD0707 /* Info.plist */,
 			);
 			path = FlickrTests;
@@ -579,6 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B5C4911D7D394D002B01FA /* PhotoTests.swift in Sources */,
+				B6B5C4931D7D5349002B01FA /* CommentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
