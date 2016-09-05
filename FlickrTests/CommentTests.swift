@@ -22,12 +22,26 @@ class CommentTests: XCTestCase {
 	func testIfCommentParses() {
 		let comment = Comment(dictionary: dict)
 		
+		XCTAssertNotNil(comment)
+	}
+	
+	func testIfCommentParsesCorrectly() {
+		let comment = Comment(dictionary: dict)
+		
 		XCTAssertEqual(comment?.authorID, dict["author"] as? String)
 		XCTAssertEqual(comment?.authorName, dict["authorname"] as? String)
 		XCTAssertEqual(comment?.content, dict["_content"] as? String)
 		
 		XCTAssertEqual(comment?.buddyIconURL, FlickrURL.getBuddyiconURL(dict))
 		XCTAssertNotEqual(comment?.buddyIconURL, FlickrURL.defaultBuddyIconURL)
+	}
+	
+	func testIfCommentDoesntParse() {
+		dict.removeValueForKey("author")
+		
+		let comment = Comment(dictionary: dict)
+		
+		XCTAssertNil(comment)
 	}
 	
 	func testIfNoPersonalBuddyIcon() {

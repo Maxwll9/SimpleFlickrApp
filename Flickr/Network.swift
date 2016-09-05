@@ -33,17 +33,6 @@ import OAuthSwift
 class OAuthService {
 	private var oauthswift: OAuth1Swift?
 	
-	func toggleAuth(vc: UIViewController, successHandler: (Bool) -> ()) {
-		if let _ = oauthswift {
-			oauthswift = nil
-			successHandler(false)
-		} else {
-			authorize(vc) {
-				successHandler(true)
-			}
-		}
-	}
-	
 	private func authorize(vc: UIViewController, successHandler: (() -> ())) {
 		let APIKey = "50bf07aafa817f50d769007471816e84"
 		let secret = "188c8a3c9fa1e9a4"
@@ -73,6 +62,17 @@ class OAuthService {
 		)
 		
 		self.oauthswift = oauthswift
+	}
+	
+	func toggleAuth(vc: UIViewController, successHandler: (Bool) -> ()) {
+		if let _ = oauthswift {
+			oauthswift = nil
+			successHandler(false)
+		} else {
+			authorize(vc) {
+				successHandler(true)
+			}
+		}
 	}
 	
 	func addComment(photoID: String, text: String, completion: (Bool) -> ()) {

@@ -13,7 +13,10 @@ class ComposeCommentViewController: UIViewController {
 	var viewModel: ComposeCommentViewModel!
 	
 	@IBOutlet var commentTextView: UITextView!
-	
+}
+
+// MARK: IBActions
+extension ComposeCommentViewController {
 	@IBAction func sendComment(sender: AnyObject) {
 		viewModel.addComment(commentTextView.text) { [weak self] result in
 			let alertTitle = (result) ? "Success!" : "ERROR"
@@ -28,7 +31,10 @@ class ComposeCommentViewController: UIViewController {
 			self?.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
-	
+}
+
+// MARK: View lifecycle
+extension ComposeCommentViewController {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if viewModel.didSent {
 			let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController
@@ -45,9 +51,10 @@ class ComposeCommentViewController: UIViewController {
 		super.viewDidLoad()
 		setupKeyboardNotifications()
 	}
-	
-	// MARK: Setup Keyboard
-	
+}
+
+// MARK: Setup Keyboard
+extension ComposeCommentViewController {
 	func setupKeyboardNotifications() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ComposeCommentViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ComposeCommentViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)

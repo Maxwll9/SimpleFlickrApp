@@ -33,18 +33,21 @@ class PhotoTests: XCTestCase {
 	
 	func testIfPhotoParses() {
 		let photo = Photo(dictionary: dict)
+		XCTAssertNotNil(photo)
+	}
+	
+	func testIfPhotoParsesCorrectly() {
+		let photo = Photo(dictionary: dict)
 		
 		XCTAssertEqual(photo?.ownerID, dict["owner"] as? String)
 		XCTAssertEqual(photo?.photoID, dict["id"] as? String)
 		XCTAssertEqual(photo?.title, dict["title"] as? String)
 		
-		let remoteURLs = (
-			smallImageURL: NSURL(string: dict["url_m"] as! String),
-			largeImageURL: NSURL(string: dict["url_h"] as! String)
-		)
+		let smallImageURL = NSURL(string: dict["url_m"] as! String)
+		let largeImageURL = NSURL(string: dict["url_h"] as! String)
 		
-		XCTAssertEqual(photo?.smallImageURL, remoteURLs.smallImageURL)
-		XCTAssertEqual(photo?.largeImageURL, remoteURLs.largeImageURL)
+		XCTAssertEqual(photo?.smallImageURL, smallImageURL)
+		XCTAssertEqual(photo?.largeImageURL, largeImageURL)
 	}
 	
 	func testIfNoHImage() {

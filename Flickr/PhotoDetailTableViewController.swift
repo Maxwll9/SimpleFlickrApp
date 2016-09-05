@@ -9,7 +9,6 @@
 import UIKit
 
 class PhotoDetailTableViewController: UITableViewController {
-	
 	var viewModel: PhotoDetailViewModel!
 	
 	@IBOutlet var imageView: UIImageView!
@@ -17,12 +16,16 @@ class PhotoDetailTableViewController: UITableViewController {
 	
 	@IBOutlet var profileBarButtonItem: UIBarButtonItem!
 	@IBOutlet var composeBarButtonItem: UIBarButtonItem!
-	
+}
+
+// MARK: IBActions
+extension PhotoDetailTableViewController {
 	@IBAction func unwindToPhotoDetail(segue: UIStoryboardSegue) {
 	}
-	
-	// MARK: View Lifecycle
-	
+}
+
+// MARK: View Lifecycle
+extension PhotoDetailTableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(false, animated: true)
@@ -32,9 +35,10 @@ class PhotoDetailTableViewController: UITableViewController {
 		super.viewDidLoad()
 		configureUI()
 	}
-	
-	// MARK: Layout
-	
+}
+
+// MARK: Layout
+extension PhotoDetailTableViewController {
 	private func configureUI() {
 		navigationItem.title = viewModel.photo.title
 		
@@ -66,9 +70,10 @@ class PhotoDetailTableViewController: UITableViewController {
 			self?.refreshControl?.endRefreshing()
 		}
 	}
-	
-	// MARK: - UITableViewDataSource
-	
+}
+
+// MARK: - UITableViewDataSource
+extension PhotoDetailTableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.comments.count
 	}

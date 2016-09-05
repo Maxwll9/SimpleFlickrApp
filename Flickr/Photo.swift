@@ -20,10 +20,6 @@ struct Photo {
 
 extension Photo {
 	init?(dictionary: JSONDictionary) {
-		print(dictionary)
-		
-		
-		
 		guard let
 			photoID = dictionary["id"] as? String,
 			title = dictionary["title"] as? String,

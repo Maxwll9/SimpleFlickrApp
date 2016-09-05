@@ -11,7 +11,7 @@ import UIKit
 class ProfileViewModel {
 	
 	let stateViewModel: StateViewModel
-	private let sharedWebservice: Webservice
+	let sharedWebservice: Webservice
 	
 	var photos = [Photo]()
 	var profile: Profile!
@@ -24,7 +24,10 @@ class ProfileViewModel {
 		self.sharedWebservice = webservice
 		self.stateViewModel = stateViewModel
 	}
-	
+}
+
+
+extension ProfileViewModel {
 	func loadPhotos(completion: (() -> ())?) {
 		let url = FlickrURL.getPublicPhotosForUser(userID)
 		sharedWebservice.load(Photo.all(url)) { [weak self] result in
@@ -51,28 +54,5 @@ class ProfileViewModel {
 	
 	func setCurrentPhoto(index: Int) {
 		stateViewModel.currentPhoto = photos[index]
-	}
-	
-	func cellForRow(cell: PhotoTableViewCell, indexPathRow row: Int) {
-		let photo = photos[row]
-		let photoURL = photo.smallImageURL
-		
-		cell.tag = row
-		
-		cell.photoImageView.image = nil
-		cell.titleLabel.text = nil
-		cell.spinner.startAnimating()
-		
-		sharedWebservice.loadImage(photoURL) { image in
-			guard cell.tag == row else { return }
-			
-			cell.photoImageView.image = image
-			cell.spinner.stopAnimating()
-			cell.titleLabel.text = photo.title
-			
-			UIView.animateWithDuration(0.2) {
-				cell.photoImageView.alpha = 1
-			}
-		}
 	}
 }

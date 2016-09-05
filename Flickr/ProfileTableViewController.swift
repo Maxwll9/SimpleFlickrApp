@@ -15,9 +15,10 @@ class ProfileTableViewController: UITableViewController {
 	@IBOutlet var buddyiconImageView: UIImageView!
 	@IBOutlet var usernameLabel: UILabel!
 	@IBOutlet var locationLabel: UILabel!
-	
-	// MARK: View Lifecycle
-	
+}
+
+// MARK: View Lifecycle
+extension ProfileTableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
@@ -35,7 +36,10 @@ class ProfileTableViewController: UITableViewController {
 		setupRefreshControl()
 		refresh()
 	}
-	
+}
+
+// MARK: Layout
+extension ProfileTableViewController {
 	private func refresh() {
 		usernameLabel.text = ""
 		locationLabel.text = ""
@@ -54,12 +58,8 @@ class ProfileTableViewController: UITableViewController {
 		
 		usernameLabel.text = profile.realName ?? profile.userName
 		
-		if let location = profile.location {
-			locationLabel.text = location
-		} else {
-			locationLabel.text = "no location"
-			locationLabel.textColor = .grayColor()
-		}
+		if profile.location == nil { locationLabel.textColor = .grayColor() }
+		locationLabel.text = profile.location ?? "no location"
 		
 		viewModel.loadBuddyIcon { [weak self] image in
 			self?.buddyiconImageView.image = image
@@ -74,15 +74,39 @@ class ProfileTableViewController: UITableViewController {
 		refreshControl?.addTarget(self, action: #selector(PhotosTableViewController.refresh), forControlEvents: .ValueChanged)
 	}
 	
-	// MARK: - UITableViewDataSource
-	
+	private func cellForRow(cell: PhotoTableViewCell, row: Int) {
+		let photo = viewModel.photos[row]
+		let photoURL = photo.smallImageURL
+		
+		cell.tag = row
+		
+		cell.photoImageView.image = nil
+		cell.titleLabel.text = nil
+		cell.spinner.startAnimating()
+		
+		viewModel.sharedWebservice.loadImage(photoURL) { image in
+			guard cell.tag == row else { return }
+			
+			cell.photoImageView.image = image
+			cell.spinner.stopAnimating()
+			cell.titleLabel.text = photo.title
+			
+			UIView.animateWithDuration(0.2) {
+				cell.photoImageView.alpha = 1
+			}
+		}
+	}
+}
+
+// MARK: - UITableViewDataSource
+extension ProfileTableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.photos.count
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoTableViewCell
-		viewModel.cellForRow(cell, indexPathRow: indexPath.row)
+		cellForRow(cell, row: indexPath.row)
 		return cell
 	}
 	

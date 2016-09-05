@@ -23,7 +23,9 @@ class PhotoDetailViewModel {
 		self.sharedWebservice = webservice
 		self.stateViewModel = stateViewModel
 	}
-	
+}
+
+extension PhotoDetailViewModel {
 	func loadComments(completion: (() -> ())?) {
 		let url = FlickrURL.getCommentsForPhoto(photo.photoID)
 		

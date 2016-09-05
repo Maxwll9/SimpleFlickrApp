@@ -14,7 +14,10 @@ class PhotosTableViewController: UITableViewController {
 	
 	@IBOutlet var segmentedControl: UISegmentedControl!
 	@IBOutlet var authorizeBarButtonItem: UIBarButtonItem!
-	
+}
+
+// MARK: IBActions
+extension PhotosTableViewController {
 	@IBAction func segmentedControlDidChange(sender: AnyObject) {
 		let selectedIndex = segmentedControl.selectedSegmentIndex
 		
@@ -28,9 +31,10 @@ class PhotosTableViewController: UITableViewController {
 			self?.updateAuthButton()
 		}
 	}
-	
-	// MARK: View Lifecycle
-	
+}
+
+// MARK: View Lifecycle
+extension PhotosTableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setToolbarHidden(true, animated: true)
@@ -44,9 +48,11 @@ class PhotosTableViewController: UITableViewController {
 		refresh()
 		setupRefreshControl()
 	}
-	
-	// MARK: Layout
-	
+}
+
+
+// MARK: Layout
+extension PhotosTableViewController {
 	func refresh() {
 		viewModel.loadPhotos() { [weak self] in
 			self?.tableView.reloadData()
@@ -64,20 +70,44 @@ class PhotosTableViewController: UITableViewController {
 		authorizeBarButtonItem.image = UIImage(named: imageName)
 	}
 	
-	// MARK: - UITableViewDataSource
-	
+	private func cellForRow(cell cell: PhotoTableViewCell, row: Int) {
+		let photo = viewModel.photo(row)
+		let photoURL = photo.smallImageURL
+		
+		cell.tag = row
+		
+		cell.photoImageView.image = nil
+		cell.titleLabel.text = photo.title
+		cell.spinner.startAnimating()
+		
+		viewModel.sharedWebservice.loadImage(photoURL) { image in
+			if cell.tag == row {
+				cell.photoImageView.image = image
+				cell.spinner.stopAnimating()
+				
+				UIView.animateWithDuration(1) {
+					cell.photoImageView.alpha = 1
+				}
+			}
+		}
+	}
+}
+
+// MARK: - UITableViewDataSource
+extension PhotosTableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.photos[viewModel.selectedIndex].count
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoTableViewCell
-		viewModel.cellForRow(cell, indexPathRow: indexPath.row)
+		cellForRow(cell: cell, row: indexPath.row)
 		return cell
 	}
-	
-	// MARK: - UITableViewDelegate
-	
+}
+
+// MARK: - UITableViewDelegate
+extension PhotosTableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		viewModel.setCurrentPhoto(indexPath.row)
 	}

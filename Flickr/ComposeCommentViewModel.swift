@@ -17,7 +17,9 @@ class ComposeCommentViewModel {
 		self.stateViewModel = stateViewModel
 		self.sharedOAuthService = sharedOAuthService
 	}
-	
+}
+
+extension ComposeCommentViewModel {
 	func addComment(text: String, completion: (Bool) -> ()) {
 		sharedOAuthService.addComment(stateViewModel.currentPhoto.photoID, text: text) { [weak self] result in
 			self?.didSent = result

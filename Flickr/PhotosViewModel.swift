@@ -11,7 +11,7 @@ import UIKit
 class PhotosViewModel {
 	
 	let stateViewModel: StateViewModel
-	private let sharedWebservice: Webservice
+	let sharedWebservice: Webservice
 	private let sharedOAuthService: OAuthService
 	
 	var selectedIndex = 0
@@ -28,6 +28,12 @@ class PhotosViewModel {
 		self.sharedWebservice = webservice
 		self.stateViewModel = stateViewModel
 		self.sharedOAuthService = sharedOAuthService
+	}
+}
+
+extension PhotosViewModel {
+	func photo(index: Int) -> Photo {
+		return photos[selectedIndex][index]
 	}
 	
 	func loadPhotos(completion: () -> ()) {
@@ -57,28 +63,6 @@ class PhotosViewModel {
 		sharedOAuthService.toggleAuth(vc) { [weak self] isAuthorized in
 			self?.stateViewModel.isAuthorized = isAuthorized
 			successHandler()
-		}
-	}
-	
-	func cellForRow(cell: PhotoTableViewCell, indexPathRow row: Int) {
-		let photo = photos[selectedIndex][row]
-		let photoURL = photo.smallImageURL
-		
-		cell.tag = row
-		
-		cell.photoImageView.image = nil
-		cell.titleLabel.text = photo.title
-		cell.spinner.startAnimating()
-		
-		sharedWebservice.loadImage(photoURL) { image in
-			if cell.tag == row {
-				cell.photoImageView.image = image
-				cell.spinner.stopAnimating()
-				
-				UIView.animateWithDuration(1) {
-					cell.photoImageView.alpha = 1
-				}
-			}
 		}
 	}
 }
