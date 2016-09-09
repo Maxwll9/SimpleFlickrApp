@@ -6,16 +6,16 @@
 //  Copyright © 2016 Maxim Nasakin. All rights reserved.
 //
 
-class ComposeCommentViewModel {
+final class ComposeCommentViewModel {
 	
 	let stateViewModel: StateViewModel
 	private let sharedOAuthService: OAuthService
 	
 	var didSent = false
 	
-	init(stateViewModel: StateViewModel, sharedOAuthService: OAuthService) {
+	init(stateViewModel: StateViewModel, oauthService: OAuthService) {
 		self.stateViewModel = stateViewModel
-		self.sharedOAuthService = sharedOAuthService
+		self.sharedOAuthService = oauthService
 	}
 }
 

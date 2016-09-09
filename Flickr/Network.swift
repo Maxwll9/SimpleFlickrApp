@@ -11,10 +11,16 @@ import Nuke
 
 public typealias JSONDictionary = [String: AnyObject]
 
-class Webservice {
+protocol Networking {
+	func load<A>(resource: Resource<A>, completion: A? -> ())
+	func loadImage(url: NSURL, completion: ((Image?) -> ()))
+}
+
+class Webservice: Networking {
 	func load<A>(resource: Resource<A>, completion: A? -> ()) {
 		Alamofire.request(.GET, resource.url).responseData { response in
-			let result = response.data.flatMap(resource.parse)
+			let data = response.data
+			let result = data.flatMap(resource.parse)
 			completion(result)
 		}
 	}
@@ -30,16 +36,22 @@ class Webservice {
 
 import OAuthSwift
 
+protocol AuthNetworking {
+	func toggleAuth(vc: UIViewController, successHandler: (Bool) ->())
+	func addComment(photoID: String, text: String, completion: (Bool) -> ())
+}
+
 class OAuthService {
+	private let APIKey = "50bf07aafa817f50d769007471816e84"
+	private let secret = "188c8a3c9fa1e9a4"
+	private let baseURLString = "https://www.flickr.com/services/oauth/"
+	
 	private var oauthswift: OAuth1Swift?
 	
 	private func authorize(vc: UIViewController, successHandler: (() -> ())) {
-		let APIKey = "50bf07aafa817f50d769007471816e84"
-		let secret = "188c8a3c9fa1e9a4"
-		
-		let requestTokenURLString = "https://www.flickr.com/services/oauth/request_token"
-		let authorizeURLString = "https://www.flickr.com/services/oauth/authorize"
-		let accessTokenURLString = "https://www.flickr.com/services/oauth/access_token"
+		let requestTokenURLString = baseURLString + "request_token"
+		let authorizeURLString = baseURLString + "authorize"
+		let accessTokenURLString = baseURLString + "access_token"
 		
 		let oauthswift = OAuth1Swift(
 			consumerKey: APIKey,
@@ -63,7 +75,9 @@ class OAuthService {
 		
 		self.oauthswift = oauthswift
 	}
-	
+}
+
+extension OAuthService: AuthNetworking {
 	func toggleAuth(vc: UIViewController, successHandler: (Bool) -> ()) {
 		if let _ = oauthswift {
 			oauthswift = nil

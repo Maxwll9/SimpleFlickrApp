@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoTableViewCell: UITableViewCell {
+final class PhotoTableViewCell: UITableViewCell {
 	
 	@IBOutlet var photoImageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
@@ -16,15 +16,23 @@ class PhotoTableViewCell: UITableViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		configure()
-	}
-	
-	private func configure() {
+		
 		photoImageView.alpha = 0
-
+		
 		let darkView = UIView(frame: photoImageView.bounds)
 		darkView.backgroundColor = .blackColor()
 		darkView.alpha = 0.2
+		
 		photoImageView.addSubview(darkView)
+	}
+}
+
+extension PhotoTableViewCell {
+	func configure(photo: Photo, row: Int) {
+		tag = row
+		
+		photoImageView.image = nil
+		titleLabel.text = nil
+		spinner.startAnimating()
 	}
 }

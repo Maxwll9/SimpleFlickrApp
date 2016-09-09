@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ProfileViewModel {
+final class ProfileViewModel {
 	
 	let stateViewModel: StateViewModel
-	let sharedWebservice: Webservice
+	private let sharedWebservice: Networking
 	
 	var photos = [Photo]()
 	var profile: Profile!
@@ -20,7 +20,7 @@ class ProfileViewModel {
 		return stateViewModel.currentPhoto.ownerID
 	}
 	
-	init(webservice: Webservice, stateViewModel: StateViewModel) {
+	init(webservice: Networking, stateViewModel: StateViewModel) {
 		self.sharedWebservice = webservice
 		self.stateViewModel = stateViewModel
 	}
@@ -36,6 +36,11 @@ extension ProfileViewModel {
 			}
 			completion?()
 		}
+	}
+	
+	func loadImage(index: Int, completion: (UIImage?) -> ()) {
+		let url = profile.buddyIconURL
+		sharedWebservice.loadImage(url, completion: completion)
 	}
 	
 	func loadProfile(completion: (() -> ())?) {

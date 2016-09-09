@@ -19,7 +19,6 @@ struct Profile {
 
 extension Profile {
 	init?(dictionary: JSONDictionary) {
-		print(dictionary)
 		guard let
 			id = dictionary["id"] as? String,
 			userName = (dictionary["username"] as? JSONDictionary)?["_content"] as? String

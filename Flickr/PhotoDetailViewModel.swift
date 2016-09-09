@@ -8,10 +8,10 @@
 
 import UIKit
 
-class PhotoDetailViewModel {
+final class PhotoDetailViewModel {
 	
 	let stateViewModel: StateViewModel
-	private let sharedWebservice: Webservice
+	private let sharedWebservice: Networking
 	
 	var photo: Photo {
 		return stateViewModel.currentPhoto
@@ -19,7 +19,7 @@ class PhotoDetailViewModel {
 	
 	var comments = [Comment]()
 	
-	init(webservice: Webservice, stateViewModel: StateViewModel) {
+	init(webservice: Networking, stateViewModel: StateViewModel) {
 		self.sharedWebservice = webservice
 		self.stateViewModel = stateViewModel
 	}
@@ -46,27 +46,5 @@ extension PhotoDetailViewModel {
 	func loadBuddyIcon(index: Int, completion: (UIImage?) -> ()) {
 		let url = comments[index].buddyIconURL
 		sharedWebservice.loadImage(url, completion: completion)
-	}
-	
-	func cellForRow(cell: CommentTableViewCell, indexPathRow row: Int) {
-		let comment = comments[row]
-		
-		cell.configure(comment)
-		
-		cell.tag = row
-		
-		cell.buddyIconImageView.image = nil
-		
-		loadBuddyIcon(row) { image in
-			guard
-				cell.tag == row,
-				let image = image else { return }
-			
-			cell.buddyIconImageView.image = image
-			
-			UIView.animateWithDuration(0.2) {
-				cell.buddyIconImageView.alpha = 1
-			}
-		}
 	}
 }

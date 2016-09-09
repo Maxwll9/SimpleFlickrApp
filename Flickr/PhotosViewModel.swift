@@ -8,51 +8,62 @@
 
 import UIKit
 
-class PhotosViewModel {
+final class PhotosViewModel {
 	
 	let stateViewModel: StateViewModel
-	let sharedWebservice: Webservice
-	private let sharedOAuthService: OAuthService
+	private let sharedWebservice: Networking
+	private let sharedOAuthService: AuthNetworking
 	
-	var selectedIndex = 0
-	var photos = [
+	private var selectedIndex = 0
+	private var allPhotos = [
 		[Photo](),
 		[Photo]()
 	]
-	var urls = [
+	
+	private var urls = [
 		FlickrURL.getInterestingPhotosURL(),
 		FlickrURL.getRecentPhotosURL()
 	]
 	
-	init(webservice: Webservice, stateViewModel: StateViewModel, sharedOAuthService: OAuthService) {
-		self.sharedWebservice = webservice
+	var photos: [Photo] {
+		return allPhotos[selectedIndex]
+	}
+	
+	init(webservice: Networking, stateViewModel: StateViewModel, oauthService: AuthNetworking) {
 		self.stateViewModel = stateViewModel
-		self.sharedOAuthService = sharedOAuthService
+		self.sharedWebservice = webservice
+		self.sharedOAuthService = oauthService
 	}
 }
 
 extension PhotosViewModel {
-	func photo(index: Int) -> Photo {
-		return photos[selectedIndex][index]
-	}
 	
 	func loadPhotos(completion: () -> ()) {
-		sharedWebservice.load(Photo.all(urls[selectedIndex])) { [weak self] result in
+		let url = urls[selectedIndex]
+		let resource = Photo.all(url)
+		sharedWebservice.load(resource) { [weak self] result in
 			if let result = result {
-				self?.photos[self!.selectedIndex] = result
+				self?.allPhotos[self!.selectedIndex] = result
 			}
 			completion()
 		}
 	}
 	
+	func loadImage(index: Int, completion: (UIImage?) -> ()) {
+		let url = photos[index].smallImageURL
+		sharedWebservice.loadImage(url, completion: completion)
+	}
+	
 	func setCurrentPhoto(index: Int) {
-		stateViewModel.currentPhoto = photos[selectedIndex][index]
+		stateViewModel.currentPhoto = allPhotos[selectedIndex][index]
 	}
 	
 	func changeSegment(selectedIndex: Int, completion: () -> ()) {
+		if (selectedIndex != 0) && (selectedIndex != 1) { return }
+		
 		self.selectedIndex = selectedIndex
 		
-		if photos[selectedIndex].isEmpty {
+		if allPhotos[selectedIndex].isEmpty {
 			loadPhotos(completion)
 		} else {
 			completion()

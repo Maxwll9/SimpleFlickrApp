@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentTableViewCell: UITableViewCell {
+final class CommentTableViewCell: UITableViewCell {
 	
 	@IBOutlet var nameLabel: UILabel!
 	@IBOutlet var commentLabel: UILabel!
@@ -21,9 +21,15 @@ class CommentTableViewCell: UITableViewCell {
 		buddyIconImageView.layer.cornerRadius = buddyIconImageView.frame.size.width / 2
 		buddyIconImageView.clipsToBounds = true
 	}
+}
 
-	func configure(comment: Comment) {
+extension CommentTableViewCell {
+	func configure(comment: Comment, row: Int) {
 		nameLabel.text = comment.authorName
 		commentLabel.text = comment.content
+		
+		tag = row
+		
+		buddyIconImageView.image = nil
 	}
 }

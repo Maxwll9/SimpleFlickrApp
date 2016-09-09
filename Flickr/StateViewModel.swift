@@ -6,7 +6,7 @@
 //  Copyright © 2016 Maxim Nasakin. All rights reserved.
 //
 
-class StateViewModel {
+final class StateViewModel {
 	var currentPhoto: Photo!
 	var isAuthorized = false
 }

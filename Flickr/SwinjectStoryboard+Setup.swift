@@ -13,14 +13,14 @@ extension SwinjectStoryboard {
 		let stateViewModel = StateViewModel()
 		let oauthService = OAuthService()
 		
-		defaultContainer.register(Webservice.self) { _ in Webservice() }
+		defaultContainer.register(Networking.self) { _ in Webservice() }
 		
 		// MARK: PhotosTableViewController
 		defaultContainer.register(PhotosViewModel.self) { r in
 			PhotosViewModel(
-				webservice: r.resolve(Webservice.self)!,
+				webservice: r.resolve(Networking.self)!,
 				stateViewModel: stateViewModel,
-				sharedOAuthService: oauthService
+				oauthService: oauthService
 			)
 		}
 		
@@ -31,7 +31,7 @@ extension SwinjectStoryboard {
 		// MARK: PhotoDetailTableViewController
 		defaultContainer.register(PhotoDetailViewModel.self) { r in
 			PhotoDetailViewModel(
-				webservice: r.resolve(Webservice.self)!,
+				webservice: r.resolve(Networking.self)!,
 				stateViewModel: stateViewModel
 			)
 		}
@@ -44,7 +44,7 @@ extension SwinjectStoryboard {
 		defaultContainer.register(ComposeCommentViewModel.self) { _ in
 			ComposeCommentViewModel(
 				stateViewModel: stateViewModel,
-				sharedOAuthService: oauthService
+				oauthService: oauthService
 			)
 		}
 		
@@ -55,7 +55,7 @@ extension SwinjectStoryboard {
 		// MARK: ProfileTableViewController
 		defaultContainer.register(ProfileViewModel.self) { r in
 			ProfileViewModel(
-				webservice: r.resolve(Webservice.self)!,
+				webservice: r.resolve(Networking.self)!,
 				stateViewModel: stateViewModel
 			)
 		}

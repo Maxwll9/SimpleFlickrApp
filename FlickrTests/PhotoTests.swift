@@ -11,24 +11,13 @@ import XCTest
 
 class PhotoTests: XCTestCase {
 	
-	var dict = ["isfamily": 0,
-	            "owner": "129341115@N05",
-	            "title": "Coal Harbour",
-	            "url_z": "https://farm9.staticflickr.com/8470/28657740294_a49413b15c_z.jpg",
-	            "width_h": 1600,
-	            "width_m": 500,
-	            "ispublic": 1,
-	            "url_m": "https://farm9.staticflickr.com/8470/28657740294_a49413b15c.jpg",
-	            "farm": 9,
-	            "height_m": 333,
-	            "url_h": "https://farm9.staticflickr.com/8470/28657740294_467c065280_h.jpg",
-	            "id": "28657740294",
-	            "server": 8470,
-	            "height_z": 427,
-	            "secret": "a49413b15c",
-	            "width_z": 640,
-	            "isfriend": 0,
-	            "height_h": 1068
+	var dict = [
+		"owner": "129341115@N05",
+		"title": "Coal Harbour",
+		"url_z": "https://farm9.staticflickr.com/8470/28657740294_a49413b15c_z.jpg",
+		"url_m": "https://farm9.staticflickr.com/8470/28657740294_a49413b15c.jpg",
+		"url_h": "https://farm9.staticflickr.com/8470/28657740294_467c065280_h.jpg",
+		"id": "28657740294"
 	]
 	
 	func testIfPhotoParses() {
@@ -39,12 +28,12 @@ class PhotoTests: XCTestCase {
 	func testIfPhotoParsesCorrectly() {
 		let photo = Photo(dictionary: dict)
 		
-		XCTAssertEqual(photo?.ownerID, dict["owner"] as? String)
-		XCTAssertEqual(photo?.photoID, dict["id"] as? String)
-		XCTAssertEqual(photo?.title, dict["title"] as? String)
+		XCTAssertEqual(photo?.ownerID, dict["owner"])
+		XCTAssertEqual(photo?.photoID, dict["id"])
+		XCTAssertEqual(photo?.title, dict["title"])
 		
-		let smallImageURL = NSURL(string: dict["url_m"] as! String)
-		let largeImageURL = NSURL(string: dict["url_h"] as! String)
+		let smallImageURL = NSURL(string: dict["url_m"]!)
+		let largeImageURL = NSURL(string: dict["url_h"]!)
 		
 		XCTAssertEqual(photo?.smallImageURL, smallImageURL)
 		XCTAssertEqual(photo?.largeImageURL, largeImageURL)
@@ -54,7 +43,7 @@ class PhotoTests: XCTestCase {
 		dict.removeValueForKey("url_h")
 		let photo = Photo(dictionary: dict)
 		
-		let largeImageURL = NSURL(string: dict["url_z"] as! String)
+		let largeImageURL = NSURL(string: dict["url_z"]!)
 		
 		XCTAssertEqual(photo?.largeImageURL, largeImageURL)
 	}

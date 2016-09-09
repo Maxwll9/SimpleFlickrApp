@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileTableViewController: UITableViewController {
+final class ProfileTableViewController: UITableViewController {
 	
 	var viewModel: ProfileViewModel!
 	
@@ -21,7 +21,6 @@ class ProfileTableViewController: UITableViewController {
 extension ProfileTableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
 		navigationController?.setToolbarHidden(true, animated: true)
 	}
 	
@@ -45,7 +44,6 @@ extension ProfileTableViewController {
 		locationLabel.text = ""
 		
 		viewModel.loadProfile(configureUI)
-		
 		viewModel.loadPhotos() { [weak self] in
 			self?.tableView.reloadData()
 			self?.refreshControl?.endRefreshing()
@@ -55,7 +53,6 @@ extension ProfileTableViewController {
 	private func configureUI() {
 		let profile = viewModel.profile
 		navigationItem.title = profile.userName
-		
 		usernameLabel.text = profile.realName ?? profile.userName
 		
 		if profile.location == nil { locationLabel.textColor = .grayColor() }
@@ -76,15 +73,10 @@ extension ProfileTableViewController {
 	
 	private func cellForRow(cell: PhotoTableViewCell, row: Int) {
 		let photo = viewModel.photos[row]
-		let photoURL = photo.smallImageURL
 		
-		cell.tag = row
+		cell.configure(photo, row: row)
 		
-		cell.photoImageView.image = nil
-		cell.titleLabel.text = nil
-		cell.spinner.startAnimating()
-		
-		viewModel.sharedWebservice.loadImage(photoURL) { image in
+		viewModel.loadImage(row) { image in
 			guard cell.tag == row else { return }
 			
 			cell.photoImageView.image = image

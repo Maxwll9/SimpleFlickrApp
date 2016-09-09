@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ComposeCommentViewController: UIViewController {
-	
+final class ComposeCommentViewController: UIViewController {
 	var viewModel: ComposeCommentViewModel!
 	
 	@IBOutlet var commentTextView: UITextView!
@@ -55,7 +54,7 @@ extension ComposeCommentViewController {
 
 // MARK: Setup Keyboard
 extension ComposeCommentViewController {
-	func setupKeyboardNotifications() {
+	private func setupKeyboardNotifications() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ComposeCommentViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ComposeCommentViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
 	}

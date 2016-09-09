@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoDetailTableViewController: UITableViewController {
+final class PhotoDetailTableViewController: UITableViewController {
 	var viewModel: PhotoDetailViewModel!
 	
 	@IBOutlet var imageView: UIImageView!
@@ -39,6 +39,20 @@ extension PhotoDetailTableViewController {
 
 // MARK: Layout
 extension PhotoDetailTableViewController {
+	func refresh() {
+		spinner.startAnimating()
+		
+		viewModel.loadImage { [weak self] image in
+			self?.imageView.image = image
+			self?.spinner.stopAnimating()
+		}
+		
+		viewModel.loadComments { [weak self] in
+			self?.tableView.reloadData()
+			self?.refreshControl?.endRefreshing()
+		}
+	}
+	
 	private func configureUI() {
 		navigationItem.title = viewModel.photo.title
 		
@@ -57,17 +71,21 @@ extension PhotoDetailTableViewController {
 		refreshControl?.addTarget(self, action: #selector(PhotoDetailTableViewController.refresh), forControlEvents: .ValueChanged)
 	}
 	
-	func refresh() {
-		spinner.startAnimating()
+	private func cellForRow(cell: CommentTableViewCell, row: Int) {
+		let comment = viewModel.comments[row]
 		
-		viewModel.loadImage { [weak self] image in
-			self?.imageView.image = image
-			self?.spinner.stopAnimating()
-		}
+		cell.configure(comment, row: row)
 		
-		viewModel.loadComments { [weak self] in
-			self?.tableView.reloadData()
-			self?.refreshControl?.endRefreshing()
+		viewModel.loadBuddyIcon(row) { image in
+			guard
+				cell.tag == row,
+				let image = image else { return }
+			
+			cell.buddyIconImageView.image = image
+			
+			UIView.animateWithDuration(0.2) {
+				cell.buddyIconImageView.alpha = 1
+			}
 		}
 	}
 }
@@ -80,7 +98,7 @@ extension PhotoDetailTableViewController {
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
-		viewModel.cellForRow(cell, indexPathRow: indexPath.row)
+		cellForRow(cell, row: indexPath.row)
 		return cell
 	}
 	

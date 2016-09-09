@@ -8,8 +8,7 @@
 
 import UIKit
 
-class PhotosTableViewController: UITableViewController {
-	
+final class PhotosTableViewController: UITableViewController {
 	var viewModel: PhotosViewModel!
 	
 	@IBOutlet var segmentedControl: UISegmentedControl!
@@ -71,23 +70,19 @@ extension PhotosTableViewController {
 	}
 	
 	private func cellForRow(cell cell: PhotoTableViewCell, row: Int) {
-		let photo = viewModel.photo(row)
-		let photoURL = photo.smallImageURL
+		let photo = viewModel.photos[row]
 		
-		cell.tag = row
+		cell.configure(photo, row: row)
 		
-		cell.photoImageView.image = nil
-		cell.titleLabel.text = photo.title
-		cell.spinner.startAnimating()
-		
-		viewModel.sharedWebservice.loadImage(photoURL) { image in
-			if cell.tag == row {
-				cell.photoImageView.image = image
-				cell.spinner.stopAnimating()
-				
-				UIView.animateWithDuration(1) {
-					cell.photoImageView.alpha = 1
-				}
+		viewModel.loadImage(row) { image in
+			guard cell.tag == row else { return }
+			
+			cell.photoImageView.image = image
+			cell.titleLabel.text = photo.title
+			cell.spinner.stopAnimating()
+			
+			UIView.animateWithDuration(1) {
+				cell.photoImageView.alpha = 1
 			}
 		}
 	}
@@ -96,7 +91,7 @@ extension PhotosTableViewController {
 // MARK: - UITableViewDataSource
 extension PhotosTableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.photos[viewModel.selectedIndex].count
+		return viewModel.photos.count
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
