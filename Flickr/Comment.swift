@@ -28,7 +28,6 @@ extension Comment {
 		self.authorName = authorName
 		self.authorID = author
 		self.content = content
-		print(dictionary)
 	}
 }
 

@@ -39,7 +39,7 @@ extension ProfileViewModel {
 	}
 	
 	func loadImage(index: Int, completion: (UIImage?) -> ()) {
-		let url = profile.buddyIconURL
+		let url = photos[index].smallImageURL
 		sharedWebservice.loadImage(url, completion: completion)
 	}
 	
@@ -58,6 +58,7 @@ extension ProfileViewModel {
 	}
 	
 	func setCurrentPhoto(index: Int) {
+		if index >= photos.count { return }
 		stateViewModel.currentPhoto = photos[index]
 	}
 }

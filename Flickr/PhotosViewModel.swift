@@ -55,6 +55,7 @@ extension PhotosViewModel {
 	}
 	
 	func setCurrentPhoto(index: Int) {
+		if index >= photos.count { return }
 		stateViewModel.currentPhoto = allPhotos[selectedIndex][index]
 	}
 	

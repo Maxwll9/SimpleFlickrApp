@@ -13,28 +13,6 @@ import Swinject
 
 class PhotoDetailViewModelTests: XCTestCase {
 	
-	class MockWebservice: Networking {
-		private let dict = [
-			"comments": [
-				"comment": [[
-					"author": "127997011@N03",
-					"iconfarm": 1,
-					"id": "57843817-28896665993-72157672483226161",
-					"realname": "Räi",
-					"iconserver": 663,
-					"_content": "Wow incredible capture... [https://www.flickr.com/photos/57866871@N03/]",
-					"authorname": "Räi"
-				]]
-			]
-		]
-		
-		func load<A>(resource: Resource<A>, completion: A? -> ()) {
-			let data = try? NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
-			let result = data.flatMap(resource.parse)
-			completion(result)
-		}
-	}
-	
 	let container = Container { c in
 		c.register(StateViewModel.self) { _ in StateViewModel() }
 		c.register(Networking.self) { _ in MockWebservice() }

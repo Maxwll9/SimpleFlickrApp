@@ -6,6 +6,7 @@
 //  Copyright © 2016 Maxim Nasakin. All rights reserved.
 //
 
+import UIKit
 import Alamofire
 import Nuke
 
@@ -18,7 +19,10 @@ protocol Networking {
 extension Networking {
 	func loadImage(url: NSURL, completion: ((Image?) -> ())) {
 		Nuke.taskWith(url) { result in
-			if case let.Success(image, _) = result {
+			if case let .Success(image, _) = result {
+				completion(image)
+			} else {
+				let image = UIImage(named: "placeholder")
 				completion(image)
 			}
 		}.resume()

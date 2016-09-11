@@ -39,7 +39,7 @@ class PhotoTests: XCTestCase {
 		XCTAssertEqual(photo?.largeImageURL, largeImageURL)
 	}
 	
-	func testIfNoHImage() {
+	func testIfNoHugeImage() {
 		dict.removeValueForKey("url_h")
 		let photo = Photo(dictionary: dict)
 		

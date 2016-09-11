@@ -13,15 +13,6 @@ import Swinject
 
 class ComposeCommentViewModelTests: XCTestCase {
 	
-	class MockOAuthService: AuthNetworking {
-		func toggleAuth(vc: UIViewController, successHandler: (Bool) -> ()) {
-		}
-		
-		func addComment(photoID: String, text: String, completion: (Bool) -> ()) {
-			completion(true)
-		}
-	}
-	
 	let container = Container { c in
 		c.register(StateViewModel.self) { _ in StateViewModel() }
 		c.register(AuthNetworking.self) { _ in MockOAuthService() }
@@ -54,7 +45,7 @@ class ComposeCommentViewModelTests: XCTestCase {
 		viewModel.stateViewModel.currentPhoto = photo
     }
 	
-	func testIfDidSetWorks() {
+	func testIfDidSentSets() {
 		viewModel.addComment("Sample") { result in
 			XCTAssertTrue(self.viewModel.didSent)
 		}
