@@ -42,3 +42,9 @@ extension Comment {
 		}
 	}
 }
+
+extension Comment: Equatable {}
+
+func ==(lhs: Comment, rhs: Comment) -> Bool {
+	return lhs.authorID == rhs.authorID
+}

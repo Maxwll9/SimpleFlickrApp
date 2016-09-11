@@ -14,10 +14,11 @@ public typealias JSONDictionary = [String: AnyObject]
 
 protocol Networking {
 	func load<A>(resource: Resource<A>, completion: A? -> ())
+	func loadImage(url: NSURL, completion: (Image?) -> ())
 }
 
 extension Networking {
-	func loadImage(url: NSURL, completion: ((Image?) -> ())) {
+	func loadImage(url: NSURL, completion: (Image?) -> ()) {
 		Nuke.taskWith(url) { result in
 			if case let .Success(image, _) = result {
 				completion(image)

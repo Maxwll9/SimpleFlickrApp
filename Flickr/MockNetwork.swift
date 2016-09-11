@@ -10,7 +10,7 @@ import UIKit
 
 class MockWebservice: Networking {
 	
-	private let photosDict = [
+	let photosDict = [
 		"photos": [
 			"photo": [[
 				"owner": "129341115@N05",
@@ -23,7 +23,7 @@ class MockWebservice: Networking {
 		]
 	]
 	
-	private let profileDict = [
+	let profileDict = [
 		"person": [
 			"id": "129341115@N05",
 			"nsid": "129341115@N05",
@@ -41,12 +41,37 @@ class MockWebservice: Networking {
 		]
 	]
 	
+	let commentsDict = [
+		"comments": [
+			"comment": [[
+				"authorname": "johndoe",
+				"_content": "Great stuff!",
+				"author": "1232325235325"
+			]]
+		]
+	]
+	
 	func load<A>(resource: Resource<A>, completion: A? -> ()) {
-		let dict = ("\(A.self)" == "Profile") ? profileDict : photosDict
+		let type = "\(A.self)"
+		var dict: [String: NSDictionary]
+		
+		switch type {
+		case "Profile":
+			dict = profileDict
+		case "Array<Comment>":
+			dict = commentsDict
+		default:
+			dict = photosDict
+		}
 		
 		let data = try? NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
 		let result = data.flatMap(resource.parse)
 		completion(result)
+	}
+	
+	func loadImage(url: NSURL, completion: (UIImage?) -> ()) {
+		let image = UIImage(named: "placeholder")
+		completion(image)
 	}
 }
 

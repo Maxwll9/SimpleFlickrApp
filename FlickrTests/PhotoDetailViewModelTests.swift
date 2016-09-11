@@ -51,5 +51,18 @@ class PhotoDetailViewModelTests: XCTestCase {
 		viewModel.loadComments {}
 		XCTAssertFalse(viewModel.comments.isEmpty)
 	}
+	
+	func testIfLoadsCommentsRight() {
+		let dict = [
+			"authorname": "johndoe",
+			"_content": "Great stuff!",
+			"author": "1232325235325"
+		]
+		
+		let comment = Comment(dictionary: dict)!
+		viewModel.loadComments {}
+		
+		XCTAssertEqual(viewModel.comments[0], comment)
+	}
 
 }
