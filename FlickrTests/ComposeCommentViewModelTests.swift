@@ -13,9 +13,18 @@ import Swinject
 
 class ComposeCommentViewModelTests: XCTestCase {
 	
+	class MockOAuthService: AuthNetworking {
+		func toggleAuth(vc: UIViewController, successHandler: (Bool) -> ()) {
+		}
+		
+		func addComment(photoID: String, text: String, completion: (Bool) -> ()) {
+			completion(true)
+		}
+	}
+	
 	let container = Container { c in
 		c.register(StateViewModel.self) { _ in StateViewModel() }
-		c.register(AuthNetworking.self) { _ in OAuthService() }
+		c.register(AuthNetworking.self) { _ in MockOAuthService() }
 		
 		c.register(ComposeCommentViewModel.self) { r in
 			ComposeCommentViewModel(
@@ -25,9 +34,30 @@ class ComposeCommentViewModelTests: XCTestCase {
 		}
 	}
 	
+	var viewModel: ComposeCommentViewModel!
+	
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+		
+		let dict = [
+			"owner": "129341115@N05",
+			"title": "Coal Harbour",
+			"url_z": "https://farm9.staticflickr.com/8470/28657740294_a49413b15c_z.jpg",
+			"url_m": "https://farm9.staticflickr.com/8470/28657740294_a49413b15c.jpg",
+			"url_h": "https://farm9.staticflickr.com/8470/28657740294_467c065280_h.jpg",
+			"id": "28657740294"
+		]
+		
+		let photo = Photo(dictionary: dict)
+		
+		viewModel = container.resolve(ComposeCommentViewModel.self)!
+		viewModel.stateViewModel.currentPhoto = photo
     }
+	
+	func testIfDidSetWorks() {
+		viewModel.addComment("Sample") { result in
+			XCTAssertTrue(self.viewModel.didSent)
+		}
+	}
 
 }

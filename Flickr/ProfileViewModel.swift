@@ -20,9 +20,9 @@ final class ProfileViewModel {
 		return stateViewModel.currentPhoto.ownerID
 	}
 	
-	init(webservice: Networking, stateViewModel: StateViewModel) {
-		self.sharedWebservice = webservice
+	init(stateViewModel: StateViewModel, webservice: Networking) {
 		self.stateViewModel = stateViewModel
+		self.sharedWebservice = webservice
 	}
 }
 

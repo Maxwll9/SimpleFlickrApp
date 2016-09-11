@@ -32,11 +32,6 @@ class PhotosViewModelTests: XCTestCase {
 			let result = data.flatMap(resource.parse)
 			completion(result)
 		}
-		
-		func loadImage(url: NSURL, completion: ((UIImage?) -> ())) {
-			let image = UIImage()
-			completion(image)
-		}
 	}
 	
 	let container = Container { c in
@@ -46,8 +41,8 @@ class PhotosViewModelTests: XCTestCase {
 		
 		c.register(PhotosViewModel.self) { r in
 			PhotosViewModel(
-				webservice: c.resolve(Networking.self)!,
 				stateViewModel: c.resolve(StateViewModel.self)!,
+				webservice: c.resolve(Networking.self)!,
 				oauthService: c.resolve(AuthNetworking.self)!
 			)
 		}

@@ -19,7 +19,7 @@ final class PhotoDetailViewModel {
 	
 	var comments = [Comment]()
 	
-	init(webservice: Networking, stateViewModel: StateViewModel) {
+	init(stateViewModel: StateViewModel, webservice: Networking) {
 		self.sharedWebservice = webservice
 		self.stateViewModel = stateViewModel
 	}

@@ -29,7 +29,7 @@ final class PhotosViewModel {
 		return allPhotos[selectedIndex]
 	}
 	
-	init(webservice: Networking, stateViewModel: StateViewModel, oauthService: AuthNetworking) {
+	init(stateViewModel: StateViewModel, webservice: Networking, oauthService: AuthNetworking) {
 		self.stateViewModel = stateViewModel
 		self.sharedWebservice = webservice
 		self.sharedOAuthService = oauthService

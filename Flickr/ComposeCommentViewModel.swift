@@ -9,11 +9,11 @@
 final class ComposeCommentViewModel {
 	
 	let stateViewModel: StateViewModel
-	private let sharedOAuthService: OAuthService
+	private let sharedOAuthService: AuthNetworking
 	
 	var didSent = false
 	
-	init(stateViewModel: StateViewModel, oauthService: OAuthService) {
+	init(stateViewModel: StateViewModel, oauthService: AuthNetworking) {
 		self.stateViewModel = stateViewModel
 		self.sharedOAuthService = oauthService
 	}
