@@ -35,7 +35,7 @@ extension ComposeCommentViewController {
 // MARK: View lifecycle
 extension ComposeCommentViewController {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		guard viewModel.didSent else { return }
+		guard viewModel.didSend else { return }
 		
 		let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController
 		destinationVC?.refresh()

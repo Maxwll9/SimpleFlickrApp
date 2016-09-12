@@ -46,10 +46,10 @@ class ComposeCommentViewModelTests: XCTestCase {
     }
 	
 	func testIfDidSentSets() {
-		XCTAssertFalse(viewModel.didSent)
+		XCTAssertFalse(viewModel.didSend)
 		
 		viewModel.addComment("") { result in
-			XCTAssertTrue(self.viewModel.didSent)
+			XCTAssertTrue(self.viewModel.didSend)
 		}
 	}
 

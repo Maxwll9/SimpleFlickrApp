@@ -55,11 +55,11 @@ class ComposeCommentViewControllerTests: XCTestCase {
     }
 
 	func testIfDidSendComment() {
-		XCTAssertFalse(vc.viewModel.didSent)
+		XCTAssertFalse(vc.viewModel.didSend)
 		
 		vc.commentTextView.text = "Sample text"
 		vc.sendComment(vc)
-		XCTAssertTrue(vc.viewModel.didSent)
+		XCTAssertTrue(vc.viewModel.didSend)
 	}
 
 }

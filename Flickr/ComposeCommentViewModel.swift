@@ -11,7 +11,7 @@ final class ComposeCommentViewModel {
 	let stateViewModel: StateViewModel
 	private let sharedOAuthService: AuthNetworking
 	
-	var didSent = false
+	var didSend = false
 	
 	init(stateViewModel: StateViewModel, oauthService: AuthNetworking) {
 		self.stateViewModel = stateViewModel
@@ -22,7 +22,7 @@ final class ComposeCommentViewModel {
 extension ComposeCommentViewModel {
 	func addComment(text: String, completion: (Bool) -> ()) {
 		sharedOAuthService.addComment(stateViewModel.currentPhoto.photoID, text: text) { [weak self] result in
-			self?.didSent = result
+			self?.didSend = result
 			completion(result)
 		}
 	}

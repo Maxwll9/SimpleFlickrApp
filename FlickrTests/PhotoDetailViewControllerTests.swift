@@ -88,4 +88,7 @@ class PhotoDetailViewControllerTests: XCTestCase {
 		XCTAssertEqual(numberOfRows, vc.viewModel.comments.count)
 	}
 
+	func testIfRefreshControlNotNil() {
+		XCTAssertNotNil(vc.refreshControl)
+	}
 }

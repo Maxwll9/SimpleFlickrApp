@@ -68,7 +68,7 @@ class PhotosTableViewControllerTests: XCTestCase {
 		XCTAssertEqual(vc.authorizeBarButtonItem.image, userFilled)
 	}
 	
-	func testIfTableViewHasRightPhotos() {
+	func testIfLoadsPhotosRight() {
 		let photo = Photo(dictionary: dict)
 		
 		vc.viewDidLoad()
@@ -94,6 +94,10 @@ class PhotosTableViewControllerTests: XCTestCase {
 	func testIfNumberOfRowsIsRight() {
 		let numberOfRows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
 		XCTAssertEqual(numberOfRows, vc.viewModel.photos.count)
+	}
+	
+	func testIfRefreshControlNotNil() {
+		XCTAssertNotNil(vc.refreshControl)
 	}
 	
 }
