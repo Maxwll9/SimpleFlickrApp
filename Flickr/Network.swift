@@ -17,7 +17,15 @@ protocol Networking {
 	func loadImage(url: NSURL, completion: (Image?) -> ())
 }
 
-extension Networking {
+class Webservice: Networking {
+	func load<A>(resource: Resource<A>, completion: A? -> ()) {
+		Alamofire.request(.GET, resource.url).responseData { response in
+			let data = response.data
+			let result = data.flatMap(resource.parse)
+			completion(result)
+		}
+	}
+	
 	func loadImage(url: NSURL, completion: (Image?) -> ()) {
 		Nuke.taskWith(url) { result in
 			if case let .Success(image, _) = result {
@@ -27,16 +35,6 @@ extension Networking {
 				completion(image)
 			}
 		}.resume()
-	}
-}
-
-class Webservice: Networking {
-	func load<A>(resource: Resource<A>, completion: A? -> ()) {
-		Alamofire.request(.GET, resource.url).responseData { response in
-			let data = response.data
-			let result = data.flatMap(resource.parse)
-			completion(result)
-		}
 	}
 }
 

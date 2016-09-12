@@ -219,8 +219,8 @@
 		B6541BD31D0C587000BD0707 /* FlickrUITests */ = {
 			isa = PBXGroup;
 			children = (
-				B6541BD61D0C587000BD0707 /* Info.plist */,
 				B60634B71D86724A0046129F /* FlickrUITests.swift */,
+				B6541BD61D0C587000BD0707 /* Info.plist */,
 			);
 			path = FlickrUITests;
 			sourceTree = "<group>";
