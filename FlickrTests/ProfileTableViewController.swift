@@ -112,4 +112,8 @@ class ProfileTableViewControllerTests: XCTestCase {
 	func testIfRefreshControlNotNil() {
 		XCTAssertNotNil(vc.refreshControl)
 	}
+	
+	func testIfRowHeightIsCorrect() {
+		XCTAssertEqual(vc.tableView.rowHeight, CGFloat(100))
+	}
 }

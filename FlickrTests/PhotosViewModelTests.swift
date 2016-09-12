@@ -42,7 +42,6 @@ class PhotosViewModelTests: XCTestCase {
 	}
 	
 	func testIfSetsCurrentPhotoRight() {
-		
 		let dict = [
 			"owner": "129341115@N05",
 			"title": "Coal Harbour",

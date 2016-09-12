@@ -43,8 +43,8 @@ final class PhotosViewModel {
 	}
 }
 
+// MARK: - Load methods
 extension PhotosViewModel {
-	
 	func loadPhotos(completion: () -> ()) {
 		let url = urls[selectedIndex]
 		let resource = Photo.all(url)
@@ -61,6 +61,11 @@ extension PhotosViewModel {
 		sharedWebservice.loadImage(url, completion: completion)
 	}
 	
+}
+
+
+// MARK: - Setting methods
+extension PhotosViewModel {
 	func setCurrentPhoto(index: Int) {
 		if index >= photos.count { return }
 		stateViewModel.currentPhoto = allPhotos[selectedIndex][index]

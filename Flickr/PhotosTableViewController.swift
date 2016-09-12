@@ -36,8 +36,8 @@ extension PhotosTableViewController {
 extension PhotosTableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.setToolbarHidden(true, animated: true)
 		
+		navigationController?.setToolbarHidden(true, animated: true)
 		updateAuthButton()
 	}
 	
@@ -72,7 +72,7 @@ extension PhotosTableViewController {
 	private func cellForRow(cell cell: PhotoTableViewCell, row: Int) {
 		let photo = viewModel.photos[row]
 		
-		cell.configure(photo, row: row)
+		cell.configure(row)
 		
 		viewModel.loadImage(row) { image in
 			guard cell.tag == row else { return }

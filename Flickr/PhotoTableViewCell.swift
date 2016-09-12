@@ -28,7 +28,7 @@ final class PhotoTableViewCell: UITableViewCell {
 }
 
 extension PhotoTableViewCell {
-	func configure(photo: Photo, row: Int) {
+	func configure(row: Int) {
 		tag = row
 		
 		photoImageView.image = nil

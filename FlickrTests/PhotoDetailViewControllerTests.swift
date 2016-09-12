@@ -91,4 +91,32 @@ class PhotoDetailViewControllerTests: XCTestCase {
 	func testIfRefreshControlNotNil() {
 		XCTAssertNotNil(vc.refreshControl)
 	}
+	
+	func testIfNavigationItemTitleIsCorrect() {
+		XCTAssertEqual(vc.navigationItem.title, "Coal Harbour")
+	}
+	
+	func testIfComposeButtonIsCorrect() {
+		XCTAssertFalse(vc.composeBarButtonItem.enabled)
+		vc.viewModel.stateViewModel.isAuthorized = true
+		vc.viewDidLoad()
+		XCTAssertTrue(vc.composeBarButtonItem.enabled)
+	}
+	
+	func testIfSpinnerIsCorrect() {
+		XCTAssertTrue(vc.spinner.hidesWhenStopped)
+		
+		vc.spinner.startAnimating()
+		XCTAssertFalse(vc.spinner.hidden)
+		XCTAssertTrue(vc.spinner.isAnimating())
+		
+		vc.refresh()
+		XCTAssertTrue(vc.spinner.hidden)
+		XCTAssertFalse(vc.spinner.isAnimating())
+	}
+	
+	func testIfRowHeightIsCorrect() {
+		XCTAssertEqual(vc.tableView.rowHeight, UITableViewAutomaticDimension)
+		XCTAssertEqual(vc.tableView.estimatedRowHeight, CGFloat(100))
+	}
 }

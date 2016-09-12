@@ -100,4 +100,11 @@ class PhotosTableViewControllerTests: XCTestCase {
 		XCTAssertNotNil(vc.refreshControl)
 	}
 	
+	func testIfRowHeightIsCorrect() {
+		XCTAssertEqual(vc.tableView.rowHeight, 100)
+	}
+	
+	func testIfSegmentedControlIsCorrect() {
+		XCTAssertEqual(vc.segmentedControl.selectedSegmentIndex, 0)
+	}
 }

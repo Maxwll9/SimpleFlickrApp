@@ -74,7 +74,7 @@ extension ProfileTableViewController {
 	private func cellForRow(cell: PhotoTableViewCell, row: Int) {
 		let photo = viewModel.photos[row]
 		
-		cell.configure(photo, row: row)
+		cell.configure(row)
 		
 		viewModel.loadImage(row) { image in
 			guard cell.tag == row else { return }

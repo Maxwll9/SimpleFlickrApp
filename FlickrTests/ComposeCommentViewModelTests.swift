@@ -45,7 +45,7 @@ class ComposeCommentViewModelTests: XCTestCase {
 		viewModel.stateViewModel.currentPhoto = photo
     }
 	
-	func testIfDidSentSets() {
+	func testIfDidSendSets() {
 		XCTAssertFalse(viewModel.didSend)
 		
 		viewModel.addComment("") { result in
