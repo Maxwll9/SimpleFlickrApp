@@ -23,7 +23,7 @@ extension ComposeCommentViewController {
 			
 			let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
 			let action = UIAlertAction(title: "OK", style: .Default) { _ in
-				self?.performSegueWithIdentifier("unwindToPhotoDetail", sender: self)
+				self?.dismissViewControllerAnimated(true, completion: nil)
 			}
 			
 			alert.addAction(action)
@@ -35,10 +35,10 @@ extension ComposeCommentViewController {
 // MARK: View lifecycle
 extension ComposeCommentViewController {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if viewModel.didSent {
-			let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController
-			destinationVC?.refresh()
-		}
+		guard viewModel.didSent else { return }
+		
+		let destinationVC = segue.destinationViewController as? PhotoDetailTableViewController
+		destinationVC?.refresh()
 	}
 	
 	override func viewDidAppear(animated: Bool) {

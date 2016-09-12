@@ -101,7 +101,10 @@ extension ProfileTableViewController {
 		cellForRow(cell, row: indexPath.row)
 		return cell
 	}
-	
+}
+
+// MARK: - UITableViewDelegate
+extension ProfileTableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		viewModel.setCurrentPhoto(indexPath.row)
 	}

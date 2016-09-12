@@ -14,11 +14,18 @@ final class PhotosViewModel {
 	private let sharedWebservice: Networking
 	private let sharedOAuthService: AuthNetworking
 	
-	private var selectedIndex = 0
 	private var allPhotos = [
 		[Photo](),
 		[Photo]()
 	]
+	
+	private var selectedIndex = 0 {
+		didSet {
+			if (selectedIndex < 0) || (selectedIndex >= allPhotos.count) {
+				selectedIndex = oldValue
+			}
+		}
+	}
 	
 	private var urls = [
 		FlickrURL.getInterestingPhotosURL(),
@@ -60,8 +67,6 @@ extension PhotosViewModel {
 	}
 	
 	func changeSegment(selectedIndex: Int, completion: () -> ()) {
-		if (selectedIndex != 0) && (selectedIndex != 1) { return }
-		
 		self.selectedIndex = selectedIndex
 		
 		if allPhotos[selectedIndex].isEmpty {

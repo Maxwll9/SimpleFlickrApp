@@ -78,4 +78,22 @@ class PhotosTableViewControllerTests: XCTestCase {
 		
 		XCTAssertEqual(cell.titleLabel.text, photo?.title)
 	}
+	
+	func testIfTableRowsEqualsToPhotoAmount() {
+		let amount = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
+		XCTAssertEqual(amount, vc.viewModel.photos.count)
+	}
+	
+	func testIfChangesSegmentRight() {
+		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+		vc.tableView(vc.tableView, didSelectRowAtIndexPath: indexPath)
+		
+		XCTAssertEqual(vc.viewModel.photos[0], vc.viewModel.stateViewModel.currentPhoto)
+	}
+	
+	func testIfNumberOfRowsIsRight() {
+		let numberOfRows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
+		XCTAssertEqual(numberOfRows, vc.viewModel.photos.count)
+	}
+	
 }

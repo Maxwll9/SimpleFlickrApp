@@ -82,5 +82,10 @@ class PhotoDetailViewControllerTests: XCTestCase {
 		XCTAssertEqual(cell.nameLabel.text, comment?.authorName)
 		XCTAssertEqual(cell.commentLabel.text, comment?.content)
 	}
+	
+	func testIfNumberOfRowsIsRight() {
+		let numberOfRows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
+		XCTAssertEqual(numberOfRows, vc.viewModel.comments.count)
+	}
 
 }

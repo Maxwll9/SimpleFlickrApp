@@ -77,4 +77,15 @@ class ProfileTableViewControllerTests: XCTestCase {
 		XCTAssertEqual(vc.usernameLabel.text, profile?.realName)
 		XCTAssertEqual(vc.locationLabel.text, profile?.location)
 	}
+	
+	func testIfNumberOfRowsIsRight() {
+		let numberOfRows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
+		XCTAssertEqual(numberOfRows, vc.viewModel.photos.count)
+	}
+	
+	func testIfSetsCurrentPhotoRight() {
+		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+		vc.tableView(vc.tableView, didSelectRowAtIndexPath: indexPath)
+		XCTAssertEqual(vc.viewModel.photos[0], vc.viewModel.stateViewModel.currentPhoto)
+	}
 }
